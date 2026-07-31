@@ -1,0 +1,26 @@
+book:
+  chapters:
+    - "index.qmd"
+    - "manifesto.qmd"
+    - "principles.qmd"
+    - part: "chapters/01-intro/index.qmd"
+      chapters:
+        - "chapters/01-intro/01-imperativa.qmd"
+        - "chapters/01-intro/02-funcional.qmd"
+        - "chapters/01-intro/03-declarativa.qmd"
+        - "chapters/01-intro/04-ia_simbolica.qmd"
+        - "chapters/01-intro/05-ml.qmd"
+        - "chapters/01-intro/06-dl.qmd"
+        - "chapters/01-intro/07-watson.qmd"
+        - "chapters/01-intro/08-llm.qmd"
+    - part: "chapters/02-conceptos/index.qmd"
+      chapters:
+        - "chapters/02-conceptos/01-sistema_inteligente.qmd"
+        - "chapters/02-conceptos/02-modelo_entrenamiento.qmd"
+        - "chapters/02-conceptos/03-contexto.qmd"
+        - "chapters/02-conceptos/04-embeddings.qmd"
+        - "chapters/02-conceptos/05-attention.qmd"
+        - "chapters/02-conceptos/06-transformers.qmd"
+        - "chapters/02-conceptos/07-modelos.qmd"
+        - "chapters/02-conceptos/08-limites.qmd"
+    - part: "chapters/03-foundations/index.qmd"

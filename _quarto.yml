@@ -1,25 +1,48 @@
 project:
   type: book
 
+  pre-render:
+    - R/generate-book-structure.R
+
+profile:
+  group:
+    - [html, pdf]
+
+metadata-files:
+  - _book-structure.yml
+
+lang: es
+
 book:
-  title: "iasi2"
-  author: "Norah Jones"
-  date: "31/7/2026"
-  chapters:
-    - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+  title: "Ingeniería asistida por sistemas inteligentes"
+  author: "Javier G. Grandez"
+  output-file: "iasi"
 
-bibliography: references.bib
+  navbar:
+    title: "IASI"
+    background: primary
+    pinned: true
 
-format:
-  html:
-    theme:
-      - cosmo
-      - brand
-  pdf:
-    documentclass: scrreprt
+    left:
+      - text: "Inicio"
+        href: index.qmd
 
+      - text: "Introducción"
+        href: chapters/01-intro/index.qmd
 
+      - text: "Conceptos"
+        href: chapters/02-conceptos/index.qmd
 
+      - text: "Foundations"
+        href: chapters/03-foundations/index.qmd
+        
+
+  search:
+    location: navbar
+    type: overlay
+
+copyright:
+  holder: "Javier G. Grandez"
+  year: 2026
+
+license: "CC BY"

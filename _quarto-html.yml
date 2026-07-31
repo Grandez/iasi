@@ -1,0 +1,11 @@
+project:
+  output-dir: outputs/html
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    
+    grid:
+       body-width: 1440px
+       
