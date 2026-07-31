@@ -24,4 +24,9 @@ book:
         - "chapters/02-conceptos/07-modelos.qmd"
         - "chapters/02-conceptos/08-limites.qmd"
     - part: "chapters/03-foundations/index.qmd"
+    - part: "chapters/07-marco/index.qmd"
+      chapters:
+        - "chapters/07-marco/01-context.qmd"
+        - "chapters/07-marco/02-tokens.qmd"
+        - "chapters/07-marco/03-window.qmd"
     - "licenses.qmd"

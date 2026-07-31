@@ -16,6 +16,13 @@ metadata-files:
 
 lang: es
 
+bibliography:
+   - references/historia-ia.bib
+   - references/inteligencia-artificial.bib
+   - references/historia-software.bib
+   - references/ingenieria-software.bib          
+
+
 book:
   title: "Ingeniería asistida por sistemas inteligentes"
   author: "Javier G. Grandez"
