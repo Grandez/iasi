@@ -43,7 +43,7 @@ Desktop.ini
 # Archivos temporales que todavia no sabemos por que se generan
 # ==============================================================================
 
-# /chapters/**/*_files/
+ /chapters/**/*_files/
 
 # ==============================================================================
 # Archivos temporales de editores
