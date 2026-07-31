@@ -24,3 +24,4 @@ book:
         - "chapters/02-conceptos/07-modelos.qmd"
         - "chapters/02-conceptos/08-limites.qmd"
     - part: "chapters/03-foundations/index.qmd"
+    - "licenses.qmd"

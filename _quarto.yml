@@ -4,6 +4,9 @@ project:
   pre-render:
     - R/generate-book-structure.R
 
+  resources:
+    - LICENSES/*.txt
+    
 profile:
   group:
     - [html, pdf]
@@ -18,6 +21,11 @@ book:
   author: "Javier G. Grandez"
   output-file: "iasi"
 
+  page-footer:
+    left: "© 2026 Javier G. Grandez"
+    right:
+      - text: "Licencias"
+        href: licenses.qmd
   navbar:
     title: "IASI"
     background: primary

@@ -38,10 +38,16 @@
 CONFIG = list(
   chapters_dir = "chapters",
   root_index = "index.qmd",
+
   front_matter = c(
     "manifesto.qmd",
     "principles.qmd"
   ),
+
+  back_matter = c(
+    "licenses.qmd"
+  ),
+
   part_index = "index.qmd",
   output_file = "_book-structure.yml"
 )
@@ -78,14 +84,18 @@ discover_chapters = function(part_dir) {
   sort(chapters)
 }
 
-validate_front_matter = function(files) {
+validate_documents = function(files, description) {
   missing_files = files[!file.exists(files)]
 
   if (length(missing_files) > 0L) {
     stop(
       paste(
-        "No se encuentran los documentos iniciales:",
-        paste0(" - ", missing_files, collapse = "\n"),
+        sprintf("No se encuentran los documentos de %s:", description),
+        paste0(
+          " - ",
+          missing_files,
+          collapse = "\n"
+        ),
         sep = "\n"
       ),
       call. = FALSE
@@ -160,6 +170,15 @@ build_book_yaml = function(parts) {
     )
   }
 
+  lines = c(
+    lines,
+    paste0(
+      "    - \"",
+      CONFIG$back_matter,
+      "\""
+    )
+  )
+
   lines
 }
 
@@ -207,8 +226,14 @@ main = function() {
     )
   }
 
-  validate_front_matter(
-    CONFIG$front_matter
+  validate_documents(
+    CONFIG$front_matter,
+    "apertura"
+  )
+
+  validate_documents(
+    CONFIG$back_matter,
+    "cierre"
   )
 
   parts = discover_parts(
