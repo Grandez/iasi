@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Transformers – Ingeniería asistida por sistemas inteligentes</title>
+<title>18&nbsp; Tokens – Ingeniería asistida por sistemas inteligentes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,26 +26,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -54,8 +70,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/02-conceptos/07-modelos.html" rel="next">
-<link href="../../chapters/02-conceptos/05-attention.html" rel="prev">
+<link href="../../chapters/04-marco/03-window.html" rel="next">
+<link href="../../chapters/04-marco/01-context.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -93,6 +109,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../iasi.css">
 </head>
@@ -141,7 +186,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/index.html">Conceptos de Sistemas Inteligentes y LLM</a></li><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/06-transformers.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-marco/index.html">Conceptos fundamentales</a></li><li class="breadcrumb-item"><a href="../../chapters/04-marco/02-tokens.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tokens</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -271,7 +316,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/02-conceptos/06-transformers.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../chapters/02-conceptos/06-transformers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
   </div>
 </li>
@@ -310,7 +355,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/04-marco/02-tokens.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/04-marco/02-tokens.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tokens</span></span></a>
   </div>
 </li>
@@ -398,43 +443,32 @@ div.csl-indent {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#una-arquitectura-basada-en-atención" id="toc-una-arquitectura-basada-en-atención" class="nav-link active" data-scroll-target="#una-arquitectura-basada-en-atención"><span class="header-section-number">15</span> Una arquitectura basada en atención</a>
-  <ul class="collapse">
-  <li><a href="#antes-del-transformer" id="toc-antes-del-transformer" class="nav-link" data-scroll-target="#antes-del-transformer"><span class="header-section-number">15.1</span> Antes del Transformer</a></li>
-  <li><a href="#la-idea-fundamental" id="toc-la-idea-fundamental" class="nav-link" data-scroll-target="#la-idea-fundamental"><span class="header-section-number">15.2</span> La idea fundamental</a></li>
-  <li><a href="#información-posicional" id="toc-información-posicional" class="nav-link" data-scroll-target="#información-posicional"><span class="header-section-number">15.3</span> Información posicional</a></li>
-  <li><a href="#bloques-transformer" id="toc-bloques-transformer" class="nav-link" data-scroll-target="#bloques-transformer"><span class="header-section-number">15.4</span> Bloques Transformer</a></li>
-  <li><a href="#atención-multicabeza" id="toc-atención-multicabeza" class="nav-link" data-scroll-target="#atención-multicabeza"><span class="header-section-number">15.5</span> Atención multicabeza</a></li>
-  <li><a href="#redes-feed-forward" id="toc-redes-feed-forward" class="nav-link" data-scroll-target="#redes-feed-forward"><span class="header-section-number">15.6</span> Redes feed-forward</a></li>
-  <li><a href="#conexiones-residuales" id="toc-conexiones-residuales" class="nav-link" data-scroll-target="#conexiones-residuales"><span class="header-section-number">15.7</span> Conexiones residuales</a></li>
-  <li><a href="#normalización" id="toc-normalización" class="nav-link" data-scroll-target="#normalización"><span class="header-section-number">15.8</span> Normalización</a></li>
-  <li><a href="#encoder-y-decoder" id="toc-encoder-y-decoder" class="nav-link" data-scroll-target="#encoder-y-decoder"><span class="header-section-number">15.9</span> Encoder y decoder</a>
-  <ul class="collapse">
-  <li><a href="#encoder" id="toc-encoder" class="nav-link" data-scroll-target="#encoder"><span class="header-section-number">15.9.1</span> Encoder</a></li>
-  <li><a href="#decoder" id="toc-decoder" class="nav-link" data-scroll-target="#decoder"><span class="header-section-number">15.9.2</span> Decoder</a></li>
-  </ul></li>
-  <li><a href="#variantes-de-la-arquitectura" id="toc-variantes-de-la-arquitectura" class="nav-link" data-scroll-target="#variantes-de-la-arquitectura"><span class="header-section-number">15.10</span> Variantes de la arquitectura</a>
-  <ul class="collapse">
-  <li><a href="#modelos-de-tipo-encoder" id="toc-modelos-de-tipo-encoder" class="nav-link" data-scroll-target="#modelos-de-tipo-encoder"><span class="header-section-number">15.10.1</span> Modelos de tipo encoder</a></li>
-  <li><a href="#modelos-de-tipo-decoder" id="toc-modelos-de-tipo-decoder" class="nav-link" data-scroll-target="#modelos-de-tipo-decoder"><span class="header-section-number">15.10.2</span> Modelos de tipo decoder</a></li>
-  <li><a href="#modelos-encoder-decoder" id="toc-modelos-encoder-decoder" class="nav-link" data-scroll-target="#modelos-encoder-decoder"><span class="header-section-number">15.10.3</span> Modelos encoder-decoder</a></li>
-  </ul></li>
-  <li><a href="#procesamiento-en-paralelo" id="toc-procesamiento-en-paralelo" class="nav-link" data-scroll-target="#procesamiento-en-paralelo"><span class="header-section-number">15.11</span> Procesamiento en paralelo</a></li>
-  <li><a href="#capas-y-representaciones" id="toc-capas-y-representaciones" class="nav-link" data-scroll-target="#capas-y-representaciones"><span class="header-section-number">15.12</span> Capas y representaciones</a></li>
-  <li><a href="#transformer-y-ventana-de-contexto" id="toc-transformer-y-ventana-de-contexto" class="nav-link" data-scroll-target="#transformer-y-ventana-de-contexto"><span class="header-section-number">15.13</span> Transformer y ventana de contexto</a></li>
-  <li><a href="#el-transformer-no-es-un-llm" id="toc-el-transformer-no-es-un-llm" class="nav-link" data-scroll-target="#el-transformer-no-es-un-llm"><span class="header-section-number">15.14</span> El Transformer no es un LLM</a></li>
-  <li><a href="#una-arquitectura-dentro-de-un-sistema-inteligente" id="toc-una-arquitectura-dentro-de-un-sistema-inteligente" class="nav-link" data-scroll-target="#una-arquitectura-dentro-de-un-sistema-inteligente"><span class="header-section-number">15.15</span> Una arquitectura dentro de un sistema inteligente</a></li>
-  <li><a href="#del-transformer-al-modelo-de-lenguaje" id="toc-del-transformer-al-modelo-de-lenguaje" class="nav-link" data-scroll-target="#del-transformer-al-modelo-de-lenguaje"><span class="header-section-number">15.16</span> Del Transformer al modelo de lenguaje</a></li>
-  </ul></li>
+  <li><a href="#por-qué-se-utilizan-tokens" id="toc-por-qué-se-utilizan-tokens" class="nav-link active" data-scroll-target="#por-qué-se-utilizan-tokens"><span class="header-section-number">18.1</span> Por qué se utilizan tokens</a></li>
+  <li><a href="#el-tokenizador" id="toc-el-tokenizador" class="nav-link" data-scroll-target="#el-tokenizador"><span class="header-section-number">18.2</span> El tokenizador</a></li>
+  <li><a href="#palabras-caracteres-y-tokens" id="toc-palabras-caracteres-y-tokens" class="nav-link" data-scroll-target="#palabras-caracteres-y-tokens"><span class="header-section-number">18.3</span> Palabras, caracteres y tokens</a></li>
+  <li><a href="#los-idiomas-no-ocupan-lo-mismo" id="toc-los-idiomas-no-ocupan-lo-mismo" class="nav-link" data-scroll-target="#los-idiomas-no-ocupan-lo-mismo"><span class="header-section-number">18.4</span> Los idiomas no ocupan lo mismo</a></li>
+  <li><a href="#los-espacios-y-la-puntuación-también-importan" id="toc-los-espacios-y-la-puntuación-también-importan" class="nav-link" data-scroll-target="#los-espacios-y-la-puntuación-también-importan"><span class="header-section-number">18.5</span> Los espacios y la puntuación también importan</a></li>
+  <li><a href="#los-números" id="toc-los-números" class="nav-link" data-scroll-target="#los-números"><span class="header-section-number">18.6</span> Los números</a></li>
+  <li><a href="#código-fuente" id="toc-código-fuente" class="nav-link" data-scroll-target="#código-fuente"><span class="header-section-number">18.7</span> Código fuente</a></li>
+  <li><a href="#tokenización-y-significado" id="toc-tokenización-y-significado" class="nav-link" data-scroll-target="#tokenización-y-significado"><span class="header-section-number">18.8</span> Tokenización y significado</a></li>
+  <li><a href="#tokens-de-entrada-y-de-salida" id="toc-tokens-de-entrada-y-de-salida" class="nav-link" data-scroll-target="#tokens-de-entrada-y-de-salida"><span class="header-section-number">18.9</span> Tokens de entrada y de salida</a></li>
+  <li><a href="#tokens-y-ventana-de-contexto" id="toc-tokens-y-ventana-de-contexto" class="nav-link" data-scroll-target="#tokens-y-ventana-de-contexto"><span class="header-section-number">18.10</span> Tokens y ventana de contexto</a></li>
+  <li><a href="#tokens-y-coste" id="toc-tokens-y-coste" class="nav-link" data-scroll-target="#tokens-y-coste"><span class="header-section-number">18.11</span> Tokens y coste</a></li>
+  <li><a href="#tokens-y-rendimiento" id="toc-tokens-y-rendimiento" class="nav-link" data-scroll-target="#tokens-y-rendimiento"><span class="header-section-number">18.12</span> Tokens y rendimiento</a></li>
+  <li><a href="#tokens-especiales" id="toc-tokens-especiales" class="nav-link" data-scroll-target="#tokens-especiales"><span class="header-section-number">18.13</span> Tokens especiales</a></li>
+  <li><a href="#no-todos-los-tokens-tienen-la-misma-importancia" id="toc-no-todos-los-tokens-tienen-la-misma-importancia" class="nav-link" data-scroll-target="#no-todos-los-tokens-tienen-la-misma-importancia"><span class="header-section-number">18.14</span> No todos los tokens tienen la misma importancia</a></li>
+  <li><a href="#una-aproximación-no-una-medida-visual" id="toc-una-aproximación-no-una-medida-visual" class="nav-link" data-scroll-target="#una-aproximación-no-una-medida-visual"><span class="header-section-number">18.15</span> Una aproximación, no una medida visual</a></li>
+  <li><a href="#un-ejemplo-completo" id="toc-un-ejemplo-completo" class="nav-link" data-scroll-target="#un-ejemplo-completo"><span class="header-section-number">18.16</span> Un ejemplo completo</a></li>
+  <li><a href="#idea-clave" id="toc-idea-clave" class="nav-link" data-scroll-target="#idea-clave"><span class="header-section-number">18.17</span> Idea clave</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/index.html">Conceptos de Sistemas Inteligentes y LLM</a></li><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/06-transformers.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-marco/index.html">Conceptos fundamentales</a></li><li class="breadcrumb-item"><a href="../../chapters/04-marco/02-tokens.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tokens</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tokens</span></h1>
 </div>
 
 
@@ -451,341 +485,306 @@ div.csl-indent {
 </header>
 
 
-<section id="una-arquitectura-basada-en-atención" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> Una arquitectura basada en atención</h1>
-<p>En las secciones anteriores hemos presentado las piezas necesarias para representar y relacionar el lenguaje:</p>
-<ul>
-<li>los <strong>tokens</strong> dividen el texto en unidades procesables;</li>
-<li>los <strong>embeddings</strong> convierten esas unidades en representaciones numéricas;</li>
-<li>la <strong>atención</strong> permite relacionar cada token con los demás elementos del contexto.</li>
-</ul>
-<p>El <strong>Transformer</strong> reúne estas capacidades dentro de una arquitectura completa para procesar secuencias.</p>
-<p>Fue presentado en 2017 por Vaswani y sus colaboradores en el artículo <em>Attention Is All You Need</em> <span class="citation" data-cites="vaswani2017">(<a href="#ref-vaswani2017" role="doc-biblioref">Vaswani et&nbsp;al. 2017</a>)</span>. Su propuesta consistía en utilizar la atención como mecanismo central del modelo, sin depender de redes recurrentes o convolucionales para procesar la secuencia.</p>
-<p>Esta arquitectura constituye la base de gran parte de los modelos de lenguaje modernos.</p>
-<section id="antes-del-transformer" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="antes-del-transformer"><span class="header-section-number">15.1</span> Antes del Transformer</h2>
-<p>El lenguaje es una secuencia ordenada.</p>
-<p>Para interpretar una frase, el modelo debe considerar:</p>
-<ul>
-<li>qué elementos aparecen;</li>
-<li>en qué orden;</li>
-<li>qué relaciones existen entre ellos;</li>
-<li>qué información anterior resulta relevante;</li>
-<li>cómo cambia el significado según el contexto.</li>
-</ul>
-<p>Antes de la aparición del Transformer, muchas arquitecturas procesaban las secuencias de forma principalmente progresiva.</p>
-<p>Un elemento se analizaba después del anterior, manteniendo un estado que intentaba conservar la información relevante:</p>
-<pre class="text"><code>token 1 → token 2 → token 3 → token 4</code></pre>
-<p>Este enfoque permitía trabajar con secuencias, pero presentaba algunas dificultades:</p>
-<ul>
-<li>limitaba la paralelización del entrenamiento;</li>
-<li>complicaba el tratamiento de relaciones muy distantes;</li>
-<li>obligaba a transportar información a través de numerosos pasos;</li>
-<li>podía perder detalles importantes en secuencias largas.</li>
-</ul>
-<p>El Transformer propone una organización diferente.</p>
-<p>En lugar de recorrer necesariamente el texto token a token para relacionar sus elementos, permite comparar directamente múltiples posiciones mediante autoatención.</p>
-</section>
-<section id="la-idea-fundamental" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="la-idea-fundamental"><span class="header-section-number">15.2</span> La idea fundamental</h2>
-<p>En un Transformer, cada token construye su representación teniendo en cuenta los demás tokens disponibles en el contexto.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>tokens
-   ↓
-embeddings e información posicional
-   ↓
-autoatención
-   ↓
-transformaciones neuronales
-   ↓
-representaciones contextuales</code></pre>
-<p>Estas operaciones se organizan en bloques que se repiten varias veces.</p>
-<p>Cada bloque recibe las representaciones producidas por el bloque anterior, establece nuevas relaciones y genera representaciones progresivamente más elaboradas.</p>
-<p>Por tanto, el Transformer no aplica una única operación de atención.</p>
-<p>Utiliza múltiples cabezas de atención, transformaciones neuronales y numerosas capas sucesivas.</p>
-</section>
-<section id="información-posicional" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="información-posicional"><span class="header-section-number">15.3</span> Información posicional</h2>
-<p>La atención permite relacionar tokens, pero necesita también conocer su posición dentro de la secuencia.</p>
-<p>Consideremos:</p>
+<p>Los modelos de lenguaje no procesan directamente palabras, frases o párrafos tal como los vemos las personas.</p>
+<p>Antes de que un texto pueda llegar al modelo, debe dividirse en unidades más pequeñas llamadas <strong>tokens</strong>.</p>
+<p>Un token puede representar una palabra completa, una parte de una palabra, un signo de puntuación, un número o incluso una combinación frecuente de caracteres. La división concreta depende del <strong>tokenizador</strong> utilizado por cada modelo.</p>
+<p>Por ejemplo, una frase como:</p>
 <blockquote class="blockquote">
-<p>El perro persigue al gato.</p>
+<p>Los sistemas inteligentes aprenden patrones.</p>
 </blockquote>
+<p>podría dividirse conceptualmente de esta forma:</p>
+<pre class="text"><code>Los | sistemas | inteligentes | aprenden | patrones | .</code></pre>
+<p>Pero también podría dividirse así:</p>
+<pre class="text"><code>Los | sistema | s | inteligente | s | aprenden | patrón | es | .</code></pre>
+<p>Ambas representaciones son posibles. El resultado depende del vocabulario y de las reglas del tokenizador.</p>
+<p>Por tanto, un token no es necesariamente una palabra.</p>
+<section id="por-qué-se-utilizan-tokens" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="por-qué-se-utilizan-tokens"><span class="header-section-number">18.1</span> Por qué se utilizan tokens</h2>
+<p>Un modelo no puede trabajar directamente con texto.</p>
+<p>Necesita transformar el contenido en números que puedan procesarse mediante operaciones matemáticas. La tokenización es el primer paso de esa transformación.</p>
+<p>De forma simplificada, el recorrido es el siguiente:</p>
+<pre class="text"><code>texto → tokens → identificadores numéricos → representaciones internas</code></pre>
+<p>Cada token se asocia con un identificador numérico.</p>
+<p>Un ejemplo puramente ilustrativo podría ser:</p>
+<pre class="text"><code>"Los"          → 1452
+"sistemas"     → 7821
+"inteligentes" → 16438
+"."            → 13</code></pre>
+<p>Estos números no contienen por sí mismos el significado de las palabras. Funcionan como referencias dentro del vocabulario que utiliza el modelo.</p>
+<p>Más adelante veremos cómo esos identificadores se transforman en <strong>embeddings</strong>, representaciones numéricas que permiten al modelo trabajar con relaciones y semejanzas.</p>
+</section>
+<section id="el-tokenizador" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="el-tokenizador"><span class="header-section-number">18.2</span> El tokenizador</h2>
+<p>El componente encargado de dividir el texto se denomina <strong>tokenizador</strong>.</p>
+<p>Cada familia de modelos puede utilizar un tokenizador diferente. Por ello, un mismo texto puede producir cantidades distintas de tokens según el modelo elegido.</p>
+<p>El tokenizador dispone de un vocabulario formado por palabras completas, fragmentos frecuentes, signos y otras secuencias de caracteres.</p>
+<p>Las expresiones comunes suelen necesitar pocos tokens. Las palabras poco frecuentes, los nombres propios, los términos técnicos o determinadas combinaciones de símbolos pueden dividirse en varias unidades.</p>
+<p>Por ejemplo, una palabra frecuente como:</p>
+<pre class="text"><code>casa</code></pre>
+<p>podría representarse mediante un único token.</p>
+<p>Una palabra menos habitual como:</p>
+<pre class="text"><code>hiperautomatización</code></pre>
+<p>podría dividirse conceptualmente en:</p>
+<pre class="text"><code>hiper | automatización</code></pre>
+<p>o incluso en fragmentos más pequeños.</p>
+<p>La división exacta no debe suponerse. Solo puede conocerse utilizando el tokenizador concreto del modelo.</p>
+</section>
+<section id="palabras-caracteres-y-tokens" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="palabras-caracteres-y-tokens"><span class="header-section-number">18.3</span> Palabras, caracteres y tokens</h2>
+<p>No existe una equivalencia universal entre palabras y tokens.</p>
+<p>Un texto con mil palabras no produce siempre el mismo número de tokens. La relación depende de varios factores:</p>
+<ul>
+<li>el idioma;</li>
+<li>la frecuencia de las palabras;</li>
+<li>la longitud de los términos;</li>
+<li>el uso de números y símbolos;</li>
+<li>el formato;</li>
+<li>el código fuente;</li>
+<li>el tokenizador empleado.</li>
+</ul>
+<p>Como aproximación general podemos expresar:</p>
+<p><span class="math display">\[
+T \approx f(P, I, V, F)
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><ol start="20" type="A">
+<li>es el número de tokens;</li>
+</ol></li>
+<li><ol start="16" type="A">
+<li>representa las palabras del texto;</li>
+</ol></li>
+<li><ol type="I">
+<li>es el idioma;</li>
+</ol></li>
+<li><ol start="22" type="A">
+<li>representa el vocabulario utilizado;</li>
+</ol></li>
+<li><ol start="6" type="A">
+<li>incluye el formato, los símbolos y otros elementos.</li>
+</ol></li>
+</ul>
+<p>No se trata de una fórmula para calcular tokens, sino de una forma de recordar que su cantidad depende de varios factores y no únicamente del número de palabras.</p>
+</section>
+<section id="los-idiomas-no-ocupan-lo-mismo" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="los-idiomas-no-ocupan-lo-mismo"><span class="header-section-number">18.4</span> Los idiomas no ocupan lo mismo</h2>
+<p>La eficiencia de la tokenización varía entre idiomas.</p>
+<p>Un vocabulario puede contener muchas palabras o fragmentos frecuentes de un idioma y representar peor otros. Como consecuencia, una misma idea expresada en dos lenguas diferentes puede ocupar cantidades distintas de tokens.</p>
+<p>También influyen las formas flexionadas. En castellano, por ejemplo, una misma raíz puede aparecer en numerosas variantes:</p>
+<pre class="text"><code>programar
+programa
+programador
+programadores
+programaremos
+programación</code></pre>
+<p>El tokenizador puede reconocer algunas como unidades completas y dividir otras en raíz y terminación.</p>
+<p>Esto tiene consecuencias prácticas. Dos textos con una longitud visual parecida pueden consumir cantidades diferentes de ventana de contexto y tener un coste distinto.</p>
+</section>
+<section id="los-espacios-y-la-puntuación-también-importan" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="los-espacios-y-la-puntuación-también-importan"><span class="header-section-number">18.5</span> Los espacios y la puntuación también importan</h2>
+<p>Los tokens no representan únicamente palabras.</p>
+<p>Los espacios, saltos de línea, signos de puntuación, comillas y otros elementos pueden formar parte de la tokenización.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Hola</code></pre>
 <p>y:</p>
-<blockquote class="blockquote">
-<p>El gato persigue al perro.</p>
-</blockquote>
-<p>Ambas frases contienen prácticamente los mismos tokens, pero su orden modifica completamente el significado.</p>
-<p>Por ello, el Transformer añade información posicional a los embeddings de entrada.</p>
-<p>De forma conceptual:</p>
-<pre class="text"><code>embedding del token + información de posición
-                    ↓
-          representación de entrada</code></pre>
-<p>Esta información permite distinguir:</p>
+<pre class="text"><code> Hola</code></pre>
+<p>podrían no producir exactamente la misma secuencia de tokens, porque el espacio inicial puede quedar asociado al texto posterior.</p>
+<p>Del mismo modo, estas expresiones pueden tokenizarse de forma diferente:</p>
+<pre class="text"><code>sistema-inteligente
+sistema inteligente
+sistema_inteligente
+SistemaInteligente</code></pre>
+<p>Para una persona, todas ellas guardan una relación evidente. Para el tokenizador son secuencias de caracteres distintas.</p>
+</section>
+<section id="los-números" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="los-números"><span class="header-section-number">18.6</span> Los números</h2>
+<p>Los números tampoco se convierten necesariamente en un único token.</p>
+<p>Una cifra como:</p>
+<pre class="text"><code>2026</code></pre>
+<p>puede representarse mediante un token o dividirse en varios fragmentos, dependiendo del vocabulario.</p>
+<p>Lo mismo ocurre con fechas, cantidades, identificadores y códigos:</p>
+<pre class="text"><code>31/07/2026
+1.250.000
+ES-2026-00481</code></pre>
+<p>Este detalle ayuda a comprender por qué los modelos pueden presentar dificultades con operaciones numéricas exactas o con secuencias largas de dígitos.</p>
+<p>El modelo procesa patrones de tokens. No utiliza necesariamente una representación numérica equivalente a la de una calculadora.</p>
+</section>
+<section id="código-fuente" class="level2" data-number="18.7">
+<h2 data-number="18.7" class="anchored" data-anchor-id="código-fuente"><span class="header-section-number">18.7</span> Código fuente</h2>
+<p>El código también se transforma en tokens.</p>
+<p>En este caso intervienen palabras reservadas, nombres de variables, operadores, espacios, tabulaciones, llaves y signos de puntuación.</p>
+<p>Por ejemplo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> precio <span class="op">*</span> cantidad</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>podría dividirse conceptualmente como:</p>
+<pre class="text"><code>total | = | precio | * | cantidad</code></pre>
+<p>Sin embargo, un identificador largo como:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>calcularImporteTotalPendiente</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>podría convertirse en varios tokens:</p>
+<pre class="text"><code>calcular | Importe | Total | Pendiente</code></pre>
+<p>El código suele contener muchos símbolos y nombres poco frecuentes. Por eso puede consumir una cantidad considerable de tokens, especialmente cuando se incluyen archivos completos, registros de ejecución o grandes fragmentos repetidos.</p>
+</section>
+<section id="tokenización-y-significado" class="level2" data-number="18.8">
+<h2 data-number="18.8" class="anchored" data-anchor-id="tokenización-y-significado"><span class="header-section-number">18.8</span> Tokenización y significado</h2>
+<p>El tokenizador divide el contenido, pero no lo comprende.</p>
+<p>Su función es representar el texto mediante unidades pertenecientes a un vocabulario. El significado emerge posteriormente, cuando el modelo procesa las relaciones entre los tokens y sus representaciones internas.</p>
+<p>Esto permite que fragmentos diferentes participen en construcciones relacionadas.</p>
+<p>Por ejemplo, los tokens correspondientes a:</p>
+<pre class="text"><code>programar
+programador
+programación</code></pre>
+<p>pueden ser distintos, pero el modelo puede aprender que aparecen en contextos relacionados.</p>
+<p>La tokenización es una operación técnica previa al razonamiento del modelo. No debe confundirse con la comprensión del lenguaje.</p>
+</section>
+<section id="tokens-de-entrada-y-de-salida" class="level2" data-number="18.9">
+<h2 data-number="18.9" class="anchored" data-anchor-id="tokens-de-entrada-y-de-salida"><span class="header-section-number">18.9</span> Tokens de entrada y de salida</h2>
+<p>En una interacción con un modelo podemos distinguir dos grandes grupos.</p>
+<p>Los <strong>tokens de entrada</strong> son aquellos que el sistema entrega al modelo:</p>
 <ul>
-<li>qué token aparece antes;</li>
-<li>cuál aparece después;</li>
-<li>la distancia entre posiciones;</li>
-<li>el orden general de la secuencia.</li>
+<li>instrucciones;</li>
+<li>pregunta del usuario;</li>
+<li>historial de conversación;</li>
+<li>documentos;</li>
+<li>resultados de herramientas;</li>
+<li>ejemplos;</li>
+<li>recuerdos recuperados.</li>
 </ul>
-<p>La propuesta original utilizaba codificaciones posicionales basadas en funciones matemáticas <span class="citation" data-cites="vaswani2017">(<a href="#ref-vaswani2017" role="doc-biblioref">Vaswani et&nbsp;al. 2017</a>)</span>. Arquitecturas posteriores han desarrollado otros mecanismos para representar la posición y las distancias relativas entre tokens.</p>
+<p>Los <strong>tokens de salida</strong> son los que el modelo genera para construir la respuesta.</p>
+<p>Podemos expresar el consumo total de una interacción de forma sencilla:</p>
+<p><span class="math display">\[
+T_{\text{total}} = T_{\text{entrada}} + T_{\text{salida}}
+\]</span></p>
+<p>Esta relación será importante cuando estudiemos la ventana de contexto, porque tanto la entrada como la salida deben caber dentro del límite disponible.</p>
 </section>
-<section id="bloques-transformer" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="bloques-transformer"><span class="header-section-number">15.4</span> Bloques Transformer</h2>
-<p>Un Transformer se construye mediante la repetición de bloques.</p>
-<p>Aunque existen distintas variantes, un bloque suele incluir dos componentes principales:</p>
-<ol type="1">
-<li>un mecanismo de atención;</li>
-<li>una red neuronal que transforma individualmente la representación de cada posición.</li>
-</ol>
-<p>De forma simplificada:</p>
-<pre class="text"><code>representaciones de entrada
-            ↓
-     atención multicabeza
-            ↓
-   red neuronal feed-forward
-            ↓
-representaciones de salida</code></pre>
-<p>A estos componentes se añaden conexiones residuales y mecanismos de normalización que facilitan el entrenamiento de redes profundas.</p>
+<section id="tokens-y-ventana-de-contexto" class="level2" data-number="18.10">
+<h2 data-number="18.10" class="anchored" data-anchor-id="tokens-y-ventana-de-contexto"><span class="header-section-number">18.10</span> Tokens y ventana de contexto</h2>
+<p>La ventana de contexto se mide habitualmente en tokens.</p>
+<p>Si un modelo admite una ventana máxima de (W) tokens, la suma del contexto recibido y la respuesta generada no debe superar ese límite:</p>
+<p><span class="math display">\[
+T_{\text{entrada}} + T_{\text{salida}} \leq W
+\]</span></p>
+<p>Por ejemplo, si una petición ocupa casi toda la ventana, quedará poco espacio para generar la respuesta.</p>
+<p>Por este motivo, los sistemas suelen reservar una parte de la capacidad para la salida:</p>
+<p><span class="math display">\[
+T_{\text{entrada máximo}} = W - T_{\text{salida reservada}}
+\]</span></p>
+<p>La cantidad reservada depende de la aplicación y de la longitud esperada de la respuesta.</p>
+<p>Esta es una de las razones por las que no conviene llenar la ventana con información sin seleccionar.</p>
 </section>
-<section id="atención-multicabeza" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="atención-multicabeza"><span class="header-section-number">15.5</span> Atención multicabeza</h2>
-<p>La atención multicabeza permite calcular varias relaciones en paralelo.</p>
-<p>Cada cabeza genera sus propias consultas, claves y valores, y puede aprender a identificar patrones diferentes.</p>
-<p>Una cabeza podría resultar sensible a determinadas relaciones sintácticas; otra, a referencias entre elementos; otra, a asociaciones semánticas o temporales.</p>
-<p>No se asigna manualmente una función fija a cada cabeza. Estas especializaciones aparecen durante el entrenamiento y no siempre pueden interpretarse con claridad.</p>
-<p>El proceso puede representarse así:</p>
-<pre class="text"><code>                   ┌─ cabeza 1 ─┐
-representaciones ──┼─ cabeza 2 ─┼─ combinación → resultado
-                   ├─ cabeza 3 ─┤
-                   └─ cabeza n ─┘</code></pre>
-<p>El resultado de todas las cabezas se combina y se transforma para obtener una nueva representación de cada token.</p>
-</section>
-<section id="redes-feed-forward" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="redes-feed-forward"><span class="header-section-number">15.6</span> Redes feed-forward</h2>
-<p>Después de la atención, cada posición atraviesa una pequeña red neuronal denominada normalmente <strong>feed-forward</strong>.</p>
-<p>La atención combina información entre diferentes posiciones.</p>
-<p>La red feed-forward transforma la información resultante de cada posición.</p>
-<p>Podemos distinguir ambas funciones:</p>
+<section id="tokens-y-coste" class="level2" data-number="18.11">
+<h2 data-number="18.11" class="anchored" data-anchor-id="tokens-y-coste"><span class="header-section-number">18.11</span> Tokens y coste</h2>
+<p>En muchos servicios comerciales, el uso del modelo se factura según el número de tokens procesados.</p>
+<p>De forma simplificada, el coste puede calcularse como:</p>
+<p><span class="math display">\[
+C =
+T_{\text{entrada}} \cdot P_{\text{entrada}}
++
+T_{\text{salida}} \cdot P_{\text{salida}}
+\]</span></p>
+<p>donde:</p>
 <ul>
-<li>la <strong>atención</strong> determina qué información debe relacionarse;</li>
-<li>la <strong>red feed-forward</strong> transforma esa información.</li>
+<li><ol start="3" type="A">
+<li>es el coste total;</li>
+</ol></li>
+<li>(T_{}) es el número de tokens recibidos;</li>
+<li>(P_{}) es el precio por token de entrada;</li>
+<li>(T_{}) es el número de tokens generados;</li>
+<li>(P_{}) es el precio por token de salida.</li>
 </ul>
-<p>Estas redes utilizan los mismos parámetros para todas las posiciones de la secuencia, aunque procesan una representación contextual diferente en cada una.</p>
+<p>En la práctica, los precios suelen publicarse por miles o millones de tokens, pero el principio es el mismo.</p>
+<p>Un contexto mayor puede mejorar una respuesta si incorpora información relevante, pero también aumenta el coste y el tiempo de procesamiento.</p>
 </section>
-<section id="conexiones-residuales" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="conexiones-residuales"><span class="header-section-number">15.7</span> Conexiones residuales</h2>
-<p>Los bloques Transformer incorporan conexiones residuales.</p>
-<p>En lugar de sustituir completamente la entrada de una capa por el nuevo resultado, parte de la información original se suma a la transformación realizada.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>entrada ───────────────┐
-   ↓                   │
-transformación         │
-   ↓                   │
-resultado + entrada ←──┘</code></pre>
-<p>Estas conexiones ayudan a:</p>
+<section id="tokens-y-rendimiento" class="level2" data-number="18.12">
+<h2 data-number="18.12" class="anchored" data-anchor-id="tokens-y-rendimiento"><span class="header-section-number">18.12</span> Tokens y rendimiento</h2>
+<p>La cantidad de tokens influye también en el rendimiento del sistema.</p>
+<p>Un contexto más largo puede requerir:</p>
 <ul>
-<li>conservar información;</li>
-<li>entrenar arquitecturas con muchas capas;</li>
-<li>facilitar el flujo de la señal y del error;</li>
-<li>reducir algunos problemas asociados a redes muy profundas.</li>
+<li>más memoria de cálculo;</li>
+<li>más tiempo de procesamiento;</li>
+<li>mayor coste;</li>
+<li>más esfuerzo para localizar la información relevante;</li>
+<li>más trabajo para mantener la coherencia.</li>
 </ul>
+<p>Esto no significa que debamos reducir siempre el contexto al mínimo. Un contexto insuficiente también produce respuestas pobres.</p>
+<p>El objetivo es utilizar los tokens necesarios, no el mayor número posible.</p>
 </section>
-<section id="normalización" class="level2" data-number="15.8">
-<h2 data-number="15.8" class="anchored" data-anchor-id="normalización"><span class="header-section-number">15.8</span> Normalización</h2>
-<p>El Transformer también utiliza mecanismos de normalización para mantener valores internos en rangos adecuados y estabilizar el entrenamiento.</p>
-<p>La combinación habitual de:</p>
+<section id="tokens-especiales" class="level2" data-number="18.13">
+<h2 data-number="18.13" class="anchored" data-anchor-id="tokens-especiales"><span class="header-section-number">18.13</span> Tokens especiales</h2>
+<p>Además de los tokens derivados del texto, algunos sistemas utilizan <strong>tokens especiales</strong>.</p>
+<p>Estos pueden señalar:</p>
 <ul>
-<li>atención;</li>
-<li>redes feed-forward;</li>
-<li>conexiones residuales;</li>
-<li>normalización;</li>
+<li>el inicio o el final de un mensaje;</li>
+<li>el papel de quien interviene;</li>
+<li>la separación entre instrucciones y datos;</li>
+<li>el inicio de una respuesta;</li>
+<li>llamadas a herramientas;</li>
+<li>fragmentos que deben recibir un tratamiento específico.</li>
 </ul>
-<p>forma la unidad básica que se repite a lo largo de la arquitectura.</p>
-<p>Cada nueva capa recibe las representaciones producidas por la anterior y las refina.</p>
+<p>Estos tokens no suelen ser visibles para el usuario, pero ayudan al sistema a estructurar la conversación.</p>
+<p>Por ejemplo, internamente podría existir una organización conceptual como:</p>
+<pre class="text"><code>[instrucción del sistema]
+[mensaje del usuario]
+[respuesta del asistente]</code></pre>
+<p>La representación real depende de cada modelo y de cada aplicación.</p>
 </section>
-<section id="encoder-y-decoder" class="level2" data-number="15.9">
-<h2 data-number="15.9" class="anchored" data-anchor-id="encoder-y-decoder"><span class="header-section-number">15.9</span> Encoder y decoder</h2>
-<p>La arquitectura presentada originalmente estaba formada por dos grandes componentes:</p>
+<section id="no-todos-los-tokens-tienen-la-misma-importancia" class="level2" data-number="18.14">
+<h2 data-number="18.14" class="anchored" data-anchor-id="no-todos-los-tokens-tienen-la-misma-importancia"><span class="header-section-number">18.14</span> No todos los tokens tienen la misma importancia</h2>
+<p>Todos los tokens ocupan espacio, pero no todos influyen de igual manera en la respuesta.</p>
+<p>Una instrucción breve puede resultar más importante que cientos de líneas de documentación. Un dato situado cerca de la pregunta puede destacar más que otro enterrado en una conversación extensa. Un fragmento irrelevante puede consumir capacidad sin aportar valor.</p>
+<p>Por eso, contar tokens solo resuelve una parte del problema.</p>
+<p>También debemos decidir:</p>
 <ul>
-<li><strong>encoder</strong>;</li>
-<li><strong>decoder</strong>.</li>
+<li>qué información incluir;</li>
+<li>cómo ordenarla;</li>
+<li>qué elementos resumir;</li>
+<li>qué fragmentos recuperar;</li>
+<li>qué información eliminar;</li>
+<li>qué espacio reservar para la respuesta.</li>
 </ul>
-<section id="encoder" class="level3" data-number="15.9.1">
-<h3 data-number="15.9.1" class="anchored" data-anchor-id="encoder"><span class="header-section-number">15.9.1</span> Encoder</h3>
-<p>El encoder recibe una secuencia de entrada y construye representaciones contextuales de sus elementos.</p>
-<p>Cada posición puede relacionarse con todas las demás posiciones de la entrada.</p>
-<p>Por ejemplo, en un sistema de traducción, el encoder podría procesar la frase escrita en el idioma de origen.</p>
+<p>La gestión de tokens forma parte de la gestión del contexto.</p>
 </section>
-<section id="decoder" class="level3" data-number="15.9.2">
-<h3 data-number="15.9.2" class="anchored" data-anchor-id="decoder"><span class="header-section-number">15.9.2</span> Decoder</h3>
-<p>El decoder genera una secuencia de salida.</p>
-<p>Durante esa generación utiliza:</p>
+<section id="una-aproximación-no-una-medida-visual" class="level2" data-number="18.15">
+<h2 data-number="18.15" class="anchored" data-anchor-id="una-aproximación-no-una-medida-visual"><span class="header-section-number">18.15</span> Una aproximación, no una medida visual</h2>
+<p>Podemos estimar visualmente la longitud de un texto, pero no conocer su número exacto de tokens sin utilizar el tokenizador correspondiente.</p>
+<p>Por ello, expresiones como «una página», «mil palabras» o «diez mil caracteres» solo ofrecen aproximaciones.</p>
+<p>Cuando el límite es importante, debe medirse con la herramienta adecuada.</p>
+<p>Esto ocurre especialmente en:</p>
 <ul>
-<li>los tokens ya generados;</li>
-<li>las representaciones producidas por el encoder;</li>
-<li>una máscara causal que impide acceder a posiciones futuras.</li>
+<li>documentos extensos;</li>
+<li>conversaciones prolongadas;</li>
+<li>análisis de código;</li>
+<li>procesamiento de registros;</li>
+<li>sistemas que recuperan múltiples fuentes;</li>
+<li>aplicaciones con costes elevados;</li>
+<li>tareas que requieren respuestas largas.</li>
 </ul>
-<p>En un sistema de traducción, el decoder produciría progresivamente la frase en el idioma de destino.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>secuencia de entrada
-        ↓
-      encoder
-        ↓
-representación contextual
-        ↓
-      decoder
-        ↓
-secuencia de salida</code></pre>
 </section>
-</section>
-<section id="variantes-de-la-arquitectura" class="level2" data-number="15.10">
-<h2 data-number="15.10" class="anchored" data-anchor-id="variantes-de-la-arquitectura"><span class="header-section-number">15.10</span> Variantes de la arquitectura</h2>
-<p>No todos los modelos basados en Transformers utilizan simultáneamente encoder y decoder.</p>
-<p>A partir de la arquitectura original aparecieron varias familias.</p>
-<section id="modelos-de-tipo-encoder" class="level3" data-number="15.10.1">
-<h3 data-number="15.10.1" class="anchored" data-anchor-id="modelos-de-tipo-encoder"><span class="header-section-number">15.10.1</span> Modelos de tipo encoder</h3>
-<p>Utilizan principalmente bloques encoder.</p>
-<p>Están orientados a construir representaciones del texto y resultan adecuados para tareas como:</p>
+<section id="un-ejemplo-completo" class="level2" data-number="18.16">
+<h2 data-number="18.16" class="anchored" data-anchor-id="un-ejemplo-completo"><span class="header-section-number">18.16</span> Un ejemplo completo</h2>
+<p>Supongamos que un sistema recibe:</p>
 <ul>
-<li>clasificación;</li>
-<li>extracción de información;</li>
-<li>análisis de contenido;</li>
-<li>comparación semántica;</li>
-<li>comprensión de documentos.</li>
+<li>500 tokens de instrucciones;</li>
+<li>2.000 tokens de conversación;</li>
+<li>4.000 tokens de documentos;</li>
+<li>1.000 tokens procedentes de herramientas.</li>
 </ul>
+<p>La entrada total sería:</p>
+<p><span class="math display">\[
+T_{\text{entrada}} = 500 + 2.000 + 4.000 + 1.000 = 7.500
+\]</span></p>
+<p>Si el sistema reserva 2.500 tokens para la respuesta, la operación completa necesitaría una ventana mínima de:</p>
+<p><span class="math display">\[
+W = 7.500 + 2.500 = 10.000
+\]</span></p>
+<p>Este ejemplo muestra que el mensaje visible del usuario puede representar solo una pequeña parte de la información que realmente llega al modelo.</p>
 </section>
-<section id="modelos-de-tipo-decoder" class="level3" data-number="15.10.2">
-<h3 data-number="15.10.2" class="anchored" data-anchor-id="modelos-de-tipo-decoder"><span class="header-section-number">15.10.2</span> Modelos de tipo decoder</h3>
-<p>Utilizan bloques decoder con atención causal.</p>
-<p>Generan el texto progresivamente, prediciendo cada token a partir de los anteriores.</p>
-<p>Son la base de muchos modelos generativos y asistentes conversacionales.</p>
-</section>
-<section id="modelos-encoder-decoder" class="level3" data-number="15.10.3">
-<h3 data-number="15.10.3" class="anchored" data-anchor-id="modelos-encoder-decoder"><span class="header-section-number">15.10.3</span> Modelos encoder-decoder</h3>
-<p>Mantienen ambos componentes.</p>
-<p>Resultan especialmente adecuados cuando se transforma una secuencia de entrada en otra secuencia de salida:</p>
-<ul>
-<li>traducción;</li>
-<li>resumen;</li>
-<li>reescritura;</li>
-<li>conversión entre formatos;</li>
-<li>generación condicionada por un documento.</li>
-</ul>
-<p>Estas categorías comparten los principios fundamentales del Transformer, pero organizan sus bloques de manera diferente según el objetivo.</p>
-</section>
-</section>
-<section id="procesamiento-en-paralelo" class="level2" data-number="15.11">
-<h2 data-number="15.11" class="anchored" data-anchor-id="procesamiento-en-paralelo"><span class="header-section-number">15.11</span> Procesamiento en paralelo</h2>
-<p>Una ventaja importante del Transformer es que, durante el entrenamiento, puede procesar simultáneamente múltiples posiciones de una secuencia.</p>
-<p>En una arquitectura estrictamente recurrente, el cálculo de una posición depende del estado producido en la posición anterior.</p>
-<p>En un Transformer, las relaciones entre tokens pueden calcularse mediante operaciones matriciales paralelas.</p>
-<p>Esto permite aprovechar de forma eficiente hardware especializado, como las unidades de procesamiento gráfico.</p>
-<p>La capacidad de paralelización contribuyó a entrenar modelos con:</p>
-<ul>
-<li>mayores volúmenes de datos;</li>
-<li>más parámetros;</li>
-<li>más capas;</li>
-<li>vocabularios amplios;</li>
-<li>contextos progresivamente mayores.</li>
-</ul>
-<p>El Transformer no es importante únicamente por representar mejor ciertas relaciones lingüísticas. También hizo viable escalar el entrenamiento de modelos de lenguaje.</p>
-</section>
-<section id="capas-y-representaciones" class="level2" data-number="15.12">
-<h2 data-number="15.12" class="anchored" data-anchor-id="capas-y-representaciones"><span class="header-section-number">15.12</span> Capas y representaciones</h2>
-<p>Las representaciones no permanecen iguales mientras atraviesan el Transformer.</p>
-<p>En las primeras capas pueden aparecer relaciones relativamente locales o estructurales.</p>
-<p>En capas posteriores, las representaciones pueden integrar información procedente de partes más amplias del contexto.</p>
-<p>No debemos imaginar, sin embargo, una jerarquía perfectamente organizada en la que cada capa tenga una función única y fácilmente interpretable.</p>
-<p>El conocimiento y el comportamiento del modelo están distribuidos entre:</p>
-<ul>
-<li>numerosas capas;</li>
-<li>múltiples cabezas de atención;</li>
-<li>redes feed-forward;</li>
-<li>embeddings;</li>
-<li>conexiones internas;</li>
-<li>millones o miles de millones de parámetros.</li>
-</ul>
-<p>Las capacidades del modelo emergen de la interacción conjunta de estos componentes.</p>
-</section>
-<section id="transformer-y-ventana-de-contexto" class="level2" data-number="15.13">
-<h2 data-number="15.13" class="anchored" data-anchor-id="transformer-y-ventana-de-contexto"><span class="header-section-number">15.13</span> Transformer y ventana de contexto</h2>
-<p>La atención se calcula sobre los tokens disponibles dentro de la ventana de contexto.</p>
-<p>Cuanto mayor sea el contexto, mayor puede ser el número de relaciones que deben evaluarse.</p>
-<p>En la formulación clásica, el coste de la autoatención crece rápidamente al aumentar la longitud de la secuencia, porque cada posición puede compararse con muchas otras posiciones.</p>
-<p>Por esta razón, procesar contextos muy extensos requiere una cantidad considerable de memoria y capacidad de cálculo.</p>
-<p>Las arquitecturas posteriores han introducido distintas optimizaciones para:</p>
-<ul>
-<li>reducir el coste de la atención;</li>
-<li>trabajar con secuencias más largas;</li>
-<li>reutilizar cálculos anteriores;</li>
-<li>seleccionar relaciones relevantes;</li>
-<li>distribuir el procesamiento.</li>
-</ul>
-<p>La ventana de contexto no es, por tanto, un límite puramente arbitrario. Está relacionada también con el coste técnico de procesar las relaciones entre tokens.</p>
-</section>
-<section id="el-transformer-no-es-un-llm" class="level2" data-number="15.14">
-<h2 data-number="15.14" class="anchored" data-anchor-id="el-transformer-no-es-un-llm"><span class="header-section-number">15.14</span> El Transformer no es un LLM</h2>
-<p>Transformer y LLM tampoco son conceptos equivalentes.</p>
-<p>El Transformer es una <strong>arquitectura</strong>.</p>
-<p>Un LLM es un modelo de lenguaje de gran escala que normalmente utiliza una arquitectura basada en Transformers y ha sido entrenado con grandes cantidades de datos.</p>
-<p>Podemos expresarlo así:</p>
-<blockquote class="blockquote">
-<p>Transformer = arquitectura</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>modelo de lenguaje = modelo entrenado para trabajar con lenguaje</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>LLM = modelo de lenguaje de gran escala</p>
-</blockquote>
-<p>Un Transformer puede utilizarse para tareas que no son estrictamente lingüísticas.</p>
-<p>Existen modelos basados en esta arquitectura para trabajar con:</p>
-<ul>
-<li>imágenes;</li>
-<li>audio;</li>
-<li>vídeo;</li>
-<li>datos biológicos;</li>
-<li>series temporales;</li>
-<li>sistemas multimodales.</li>
-</ul>
-<p>La arquitectura define cómo se procesa y relaciona la información. El entrenamiento y los datos determinan qué capacidad concreta desarrolla el modelo.</p>
-</section>
-<section id="una-arquitectura-dentro-de-un-sistema-inteligente" class="level2" data-number="15.15">
-<h2 data-number="15.15" class="anchored" data-anchor-id="una-arquitectura-dentro-de-un-sistema-inteligente"><span class="header-section-number">15.15</span> Una arquitectura dentro de un sistema inteligente</h2>
-<p>Un modelo basado en Transformers continúa siendo solo un componente.</p>
-<p>Para convertirlo en un sistema inteligente útil, sigue siendo necesario decidir:</p>
-<ul>
-<li>qué información recibe;</li>
-<li>cómo se construye el contexto;</li>
-<li>qué modelo se utiliza;</li>
-<li>qué resultados son válidos;</li>
-<li>cómo se verifican;</li>
-<li>qué herramientas puede emplear;</li>
-<li>qué acciones puede ejecutar;</li>
-<li>qué controles se aplican;</li>
-<li>quién asume la responsabilidad.</li>
-</ul>
-<p>La arquitectura aporta capacidad para representar, relacionar y generar información.</p>
-<p>El sistema inteligente determina cómo se utiliza esa capacidad.</p>
-</section>
-<section id="del-transformer-al-modelo-de-lenguaje" class="level2" data-number="15.16">
-<h2 data-number="15.16" class="anchored" data-anchor-id="del-transformer-al-modelo-de-lenguaje"><span class="header-section-number">15.16</span> Del Transformer al modelo de lenguaje</h2>
-<p>El recorrido conceptual queda ahora así:</p>
-<blockquote class="blockquote">
-<p>texto → tokens → embeddings → información posicional → atención multicabeza → bloques Transformer → representaciones contextuales</p>
-</blockquote>
-<p>Todavía falta explicar cómo se utiliza esta arquitectura para aprender el lenguaje.</p>
-<p>Un Transformer no nace sabiendo escribir, resumir, traducir o responder preguntas. Estas capacidades aparecen como resultado de un proceso de entrenamiento sobre grandes cantidades de secuencias.</p>
-<p>En la siguiente sección estudiaremos qué es un <strong>modelo de lenguaje</strong>, qué significa predecir el siguiente token y cómo esa tarea aparentemente sencilla puede dar lugar a capacidades mucho más amplias.</p>
+<section id="idea-clave" class="level2" data-number="18.17">
+<h2 data-number="18.17" class="anchored" data-anchor-id="idea-clave"><span class="header-section-number">18.17</span> Idea clave</h2>
+<p>Los tokens son las unidades con las que el modelo recibe y genera contenido.</p>
+<p>No equivalen necesariamente a palabras, y su cantidad depende del idioma, del vocabulario, del formato y del tokenizador utilizado.</p>
+<p>Las instrucciones, la conversación, los documentos y la respuesta consumen tokens. Todos ellos deben caber dentro de la ventana de contexto.</p>
+<p>Ahora que conocemos la unidad con la que se mide ese espacio, podemos estudiar con mayor precisión la <strong>ventana de contexto</strong>.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-vaswani2017" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et&nbsp;al. 2017. <span>«Attention Is All You Need»</span>. <em>Advances in Neural Information Processing Systems</em> 30.
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1191,13 +1190,13 @@ Vaswani, Ashish, Noam Shazeer, Niki Parmar, et&nbsp;al. 2017. <span>«Attention 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../chapters/02-conceptos/05-attention.html" class="pagination-link" aria-label="Attention">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Attention</span></span>
+      <a href="../../chapters/04-marco/01-context.html" class="pagination-link" aria-label="El contexto">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">El contexto</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/02-conceptos/07-modelos.html" class="pagination-link" aria-label="Modelos de lenguaje">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelos de lenguaje</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/04-marco/03-window.html" class="pagination-link" aria-label="La ventana de contexto">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">La ventana de contexto</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

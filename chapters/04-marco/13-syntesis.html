@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Transformers – Ingeniería asistida por sistemas inteligentes</title>
+<title>29&nbsp; Una visión de conjunto – Ingeniería asistida por sistemas inteligentes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,26 +26,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -54,8 +35,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/02-conceptos/07-modelos.html" rel="next">
-<link href="../../chapters/02-conceptos/05-attention.html" rel="prev">
+<link href="../../licenses.html" rel="next">
+<link href="../../chapters/04-marco/12-system.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -93,6 +74,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../iasi.css">
 </head>
@@ -141,7 +151,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/index.html">Conceptos de Sistemas Inteligentes y LLM</a></li><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/06-transformers.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-marco/index.html">Conceptos fundamentales</a></li><li class="breadcrumb-item"><a href="../../chapters/04-marco/13-syntesis.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Una visión de conjunto</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -271,7 +281,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/02-conceptos/06-transformers.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../chapters/02-conceptos/06-transformers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
   </div>
 </li>
@@ -376,7 +386,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/04-marco/13-syntesis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/04-marco/13-syntesis.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Una visión de conjunto</span></span></a>
   </div>
 </li>
@@ -398,43 +408,34 @@ div.csl-indent {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#una-arquitectura-basada-en-atención" id="toc-una-arquitectura-basada-en-atención" class="nav-link active" data-scroll-target="#una-arquitectura-basada-en-atención"><span class="header-section-number">15</span> Una arquitectura basada en atención</a>
+  <li><a href="#las-piezas-principales" id="toc-las-piezas-principales" class="nav-link active" data-scroll-target="#las-piezas-principales"><span class="header-section-number">29.1</span> Las piezas principales</a></li>
+  <li><a href="#diferencias-que-conviene-conservar" id="toc-diferencias-que-conviene-conservar" class="nav-link" data-scroll-target="#diferencias-que-conviene-conservar"><span class="header-section-number">29.2</span> Diferencias que conviene conservar</a>
   <ul class="collapse">
-  <li><a href="#antes-del-transformer" id="toc-antes-del-transformer" class="nav-link" data-scroll-target="#antes-del-transformer"><span class="header-section-number">15.1</span> Antes del Transformer</a></li>
-  <li><a href="#la-idea-fundamental" id="toc-la-idea-fundamental" class="nav-link" data-scroll-target="#la-idea-fundamental"><span class="header-section-number">15.2</span> La idea fundamental</a></li>
-  <li><a href="#información-posicional" id="toc-información-posicional" class="nav-link" data-scroll-target="#información-posicional"><span class="header-section-number">15.3</span> Información posicional</a></li>
-  <li><a href="#bloques-transformer" id="toc-bloques-transformer" class="nav-link" data-scroll-target="#bloques-transformer"><span class="header-section-number">15.4</span> Bloques Transformer</a></li>
-  <li><a href="#atención-multicabeza" id="toc-atención-multicabeza" class="nav-link" data-scroll-target="#atención-multicabeza"><span class="header-section-number">15.5</span> Atención multicabeza</a></li>
-  <li><a href="#redes-feed-forward" id="toc-redes-feed-forward" class="nav-link" data-scroll-target="#redes-feed-forward"><span class="header-section-number">15.6</span> Redes feed-forward</a></li>
-  <li><a href="#conexiones-residuales" id="toc-conexiones-residuales" class="nav-link" data-scroll-target="#conexiones-residuales"><span class="header-section-number">15.7</span> Conexiones residuales</a></li>
-  <li><a href="#normalización" id="toc-normalización" class="nav-link" data-scroll-target="#normalización"><span class="header-section-number">15.8</span> Normalización</a></li>
-  <li><a href="#encoder-y-decoder" id="toc-encoder-y-decoder" class="nav-link" data-scroll-target="#encoder-y-decoder"><span class="header-section-number">15.9</span> Encoder y decoder</a>
-  <ul class="collapse">
-  <li><a href="#encoder" id="toc-encoder" class="nav-link" data-scroll-target="#encoder"><span class="header-section-number">15.9.1</span> Encoder</a></li>
-  <li><a href="#decoder" id="toc-decoder" class="nav-link" data-scroll-target="#decoder"><span class="header-section-number">15.9.2</span> Decoder</a></li>
+  <li><a href="#conocimiento-y-contexto" id="toc-conocimiento-y-contexto" class="nav-link" data-scroll-target="#conocimiento-y-contexto"><span class="header-section-number">29.2.1</span> Conocimiento y contexto</a></li>
+  <li><a href="#contexto-y-ventana-de-contexto" id="toc-contexto-y-ventana-de-contexto" class="nav-link" data-scroll-target="#contexto-y-ventana-de-contexto"><span class="header-section-number">29.2.2</span> Contexto y ventana de contexto</a></li>
+  <li><a href="#contexto-y-memoria" id="toc-contexto-y-memoria" class="nav-link" data-scroll-target="#contexto-y-memoria"><span class="header-section-number">29.2.3</span> Contexto y memoria</a></li>
+  <li><a href="#memoria-y-entrenamiento" id="toc-memoria-y-entrenamiento" class="nav-link" data-scroll-target="#memoria-y-entrenamiento"><span class="header-section-number">29.2.4</span> Memoria y entrenamiento</a></li>
+  <li><a href="#inferencia-y-generación" id="toc-inferencia-y-generación" class="nav-link" data-scroll-target="#inferencia-y-generación"><span class="header-section-number">29.2.5</span> Inferencia y generación</a></li>
+  <li><a href="#modelo-y-sistema" id="toc-modelo-y-sistema" class="nav-link" data-scroll-target="#modelo-y-sistema"><span class="header-section-number">29.2.6</span> Modelo y sistema</a></li>
   </ul></li>
-  <li><a href="#variantes-de-la-arquitectura" id="toc-variantes-de-la-arquitectura" class="nav-link" data-scroll-target="#variantes-de-la-arquitectura"><span class="header-section-number">15.10</span> Variantes de la arquitectura</a>
-  <ul class="collapse">
-  <li><a href="#modelos-de-tipo-encoder" id="toc-modelos-de-tipo-encoder" class="nav-link" data-scroll-target="#modelos-de-tipo-encoder"><span class="header-section-number">15.10.1</span> Modelos de tipo encoder</a></li>
-  <li><a href="#modelos-de-tipo-decoder" id="toc-modelos-de-tipo-decoder" class="nav-link" data-scroll-target="#modelos-de-tipo-decoder"><span class="header-section-number">15.10.2</span> Modelos de tipo decoder</a></li>
-  <li><a href="#modelos-encoder-decoder" id="toc-modelos-encoder-decoder" class="nav-link" data-scroll-target="#modelos-encoder-decoder"><span class="header-section-number">15.10.3</span> Modelos encoder-decoder</a></li>
-  </ul></li>
-  <li><a href="#procesamiento-en-paralelo" id="toc-procesamiento-en-paralelo" class="nav-link" data-scroll-target="#procesamiento-en-paralelo"><span class="header-section-number">15.11</span> Procesamiento en paralelo</a></li>
-  <li><a href="#capas-y-representaciones" id="toc-capas-y-representaciones" class="nav-link" data-scroll-target="#capas-y-representaciones"><span class="header-section-number">15.12</span> Capas y representaciones</a></li>
-  <li><a href="#transformer-y-ventana-de-contexto" id="toc-transformer-y-ventana-de-contexto" class="nav-link" data-scroll-target="#transformer-y-ventana-de-contexto"><span class="header-section-number">15.13</span> Transformer y ventana de contexto</a></li>
-  <li><a href="#el-transformer-no-es-un-llm" id="toc-el-transformer-no-es-un-llm" class="nav-link" data-scroll-target="#el-transformer-no-es-un-llm"><span class="header-section-number">15.14</span> El Transformer no es un LLM</a></li>
-  <li><a href="#una-arquitectura-dentro-de-un-sistema-inteligente" id="toc-una-arquitectura-dentro-de-un-sistema-inteligente" class="nav-link" data-scroll-target="#una-arquitectura-dentro-de-un-sistema-inteligente"><span class="header-section-number">15.15</span> Una arquitectura dentro de un sistema inteligente</a></li>
-  <li><a href="#del-transformer-al-modelo-de-lenguaje" id="toc-del-transformer-al-modelo-de-lenguaje" class="nav-link" data-scroll-target="#del-transformer-al-modelo-de-lenguaje"><span class="header-section-number">15.16</span> Del Transformer al modelo de lenguaje</a></li>
-  </ul></li>
+  <li><a href="#una-respuesta-no-depende-solo-del-modelo" id="toc-una-respuesta-no-depende-solo-del-modelo" class="nav-link" data-scroll-target="#una-respuesta-no-depende-solo-del-modelo"><span class="header-section-number">29.3</span> Una respuesta no depende solo del modelo</a></li>
+  <li><a href="#no-es-una-base-de-datos" id="toc-no-es-una-base-de-datos" class="nav-link" data-scroll-target="#no-es-una-base-de-datos"><span class="header-section-number">29.4</span> No es una base de datos</a></li>
+  <li><a href="#no-es-una-memoria-permanente" id="toc-no-es-una-memoria-permanente" class="nav-link" data-scroll-target="#no-es-una-memoria-permanente"><span class="header-section-number">29.5</span> No es una memoria permanente</a></li>
+  <li><a href="#no-aprende-normalmente-durante-la-conversación" id="toc-no-aprende-normalmente-durante-la-conversación" class="nav-link" data-scroll-target="#no-aprende-normalmente-durante-la-conversación"><span class="header-section-number">29.6</span> No aprende normalmente durante la conversación</a></li>
+  <li><a href="#no-verifica-automáticamente-la-verdad" id="toc-no-verifica-automáticamente-la-verdad" class="nav-link" data-scroll-target="#no-verifica-automáticamente-la-verdad"><span class="header-section-number">29.7</span> No verifica automáticamente la verdad</a></li>
+  <li><a href="#qué-debe-preguntar-un-ingeniero" id="toc-qué-debe-preguntar-un-ingeniero" class="nav-link" data-scroll-target="#qué-debe-preguntar-un-ingeniero"><span class="header-section-number">29.8</span> Qué debe preguntar un ingeniero</a></li>
+  <li><a href="#un-ejemplo-de-extremo-a-extremo" id="toc-un-ejemplo-de-extremo-a-extremo" class="nav-link" data-scroll-target="#un-ejemplo-de-extremo-a-extremo"><span class="header-section-number">29.9</span> Un ejemplo de extremo a extremo</a></li>
+  <li><a href="#del-concepto-a-la-ingeniería" id="toc-del-concepto-a-la-ingeniería" class="nav-link" data-scroll-target="#del-concepto-a-la-ingeniería"><span class="header-section-number">29.10</span> Del concepto a la ingeniería</a></li>
+  <li><a href="#ideas-clave" id="toc-ideas-clave" class="nav-link" data-scroll-target="#ideas-clave"><span class="header-section-number">29.11</span> Ideas clave</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/index.html">Conceptos de Sistemas Inteligentes y LLM</a></li><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/06-transformers.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-marco/index.html">Conceptos fundamentales</a></li><li class="breadcrumb-item"><a href="../../chapters/04-marco/13-syntesis.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Una visión de conjunto</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></h1>
+<h1 class="title"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Una visión de conjunto</span></h1>
 </div>
 
 
@@ -451,341 +452,280 @@ div.csl-indent {
 </header>
 
 
-<section id="una-arquitectura-basada-en-atención" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> Una arquitectura basada en atención</h1>
-<p>En las secciones anteriores hemos presentado las piezas necesarias para representar y relacionar el lenguaje:</p>
-<ul>
-<li>los <strong>tokens</strong> dividen el texto en unidades procesables;</li>
-<li>los <strong>embeddings</strong> convierten esas unidades en representaciones numéricas;</li>
-<li>la <strong>atención</strong> permite relacionar cada token con los demás elementos del contexto.</li>
-</ul>
-<p>El <strong>Transformer</strong> reúne estas capacidades dentro de una arquitectura completa para procesar secuencias.</p>
-<p>Fue presentado en 2017 por Vaswani y sus colaboradores en el artículo <em>Attention Is All You Need</em> <span class="citation" data-cites="vaswani2017">(<a href="#ref-vaswani2017" role="doc-biblioref">Vaswani et&nbsp;al. 2017</a>)</span>. Su propuesta consistía en utilizar la atención como mecanismo central del modelo, sin depender de redes recurrentes o convolucionales para procesar la secuencia.</p>
-<p>Esta arquitectura constituye la base de gran parte de los modelos de lenguaje modernos.</p>
-<section id="antes-del-transformer" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="antes-del-transformer"><span class="header-section-number">15.1</span> Antes del Transformer</h2>
-<p>El lenguaje es una secuencia ordenada.</p>
-<p>Para interpretar una frase, el modelo debe considerar:</p>
-<ul>
-<li>qué elementos aparecen;</li>
-<li>en qué orden;</li>
-<li>qué relaciones existen entre ellos;</li>
-<li>qué información anterior resulta relevante;</li>
-<li>cómo cambia el significado según el contexto.</li>
-</ul>
-<p>Antes de la aparición del Transformer, muchas arquitecturas procesaban las secuencias de forma principalmente progresiva.</p>
-<p>Un elemento se analizaba después del anterior, manteniendo un estado que intentaba conservar la información relevante:</p>
-<pre class="text"><code>token 1 → token 2 → token 3 → token 4</code></pre>
-<p>Este enfoque permitía trabajar con secuencias, pero presentaba algunas dificultades:</p>
-<ul>
-<li>limitaba la paralelización del entrenamiento;</li>
-<li>complicaba el tratamiento de relaciones muy distantes;</li>
-<li>obligaba a transportar información a través de numerosos pasos;</li>
-<li>podía perder detalles importantes en secuencias largas.</li>
-</ul>
-<p>El Transformer propone una organización diferente.</p>
-<p>En lugar de recorrer necesariamente el texto token a token para relacionar sus elementos, permite comparar directamente múltiples posiciones mediante autoatención.</p>
+<p>A lo largo de este capítulo hemos presentado los principales conceptos que aparecen cuando trabajamos con modelos de lenguaje y sistemas inteligentes.</p>
+<p>No hemos estudiado cada mecanismo con la profundidad necesaria para construir un modelo desde cero. El propósito era disponer de un mapa: reconocer las piezas, comprender su función y evitar confundirlas cuando aparezcan en los siguientes capítulos.</p>
+<p>Podemos resumir el recorrido completo de esta forma:</p>
+<pre class="text"><code>texto
+  ↓
+tokens
+  ↓
+embeddings
+  ↓
+transformer
+  ↓
+atención
+  ↓
+representaciones dependientes del contexto
+  ↓
+probabilidades
+  ↓
+generación de nuevos tokens</code></pre>
+<p>Este proceso ocurre dentro de una ventana de contexto limitada y utilizando los parámetros aprendidos durante el entrenamiento.</p>
+<p>Pero el modelo no trabaja aislado.</p>
+<pre class="text"><code>Sistema inteligente
+├── modelo
+├── instrucciones
+├── contexto
+├── memoria
+├── documentos
+├── herramientas
+├── permisos
+├── validaciones
+└── aplicación</code></pre>
+<p>El comportamiento que observa el usuario surge de la combinación de todos estos elementos.</p>
+<section id="las-piezas-principales" class="level2" data-number="29.1">
+<h2 data-number="29.1" class="anchored" data-anchor-id="las-piezas-principales"><span class="header-section-number">29.1</span> Las piezas principales</h2>
+<p>El <strong>modelo</strong> es una estructura matemática formada por una arquitectura y unos parámetros aprendidos.</p>
+<p>El <strong>entrenamiento</strong> modifica esos parámetros a partir de datos y ejemplos.</p>
+<p>La <strong>inferencia</strong> utiliza el modelo ya entrenado para procesar entradas nuevas.</p>
+<p>Los <strong>tokens</strong> son las unidades con las que el modelo recibe y genera contenido.</p>
+<p>Los <strong>embeddings</strong> transforman esos elementos en representaciones numéricas capaces de expresar relaciones.</p>
+<p>Los <strong>transformers</strong> procesan las secuencias mediante capas sucesivas.</p>
+<p>La <strong>atención</strong> permite relacionar unos tokens con otros y construir representaciones dependientes del contexto.</p>
+<p>El <strong>contexto</strong> contiene la información disponible para resolver la tarea actual.</p>
+<p>La <strong>ventana de contexto</strong> limita cuánta información puede procesarse simultáneamente.</p>
+<p>La <strong>memoria</strong> conserva información fuera de esa ventana y permite recuperarla posteriormente.</p>
+<p>La <strong>generación probabilística</strong> construye la respuesta seleccionando sucesivamente entre distintas continuaciones posibles.</p>
+<p>Finalmente, el <strong>sistema</strong> coordina el modelo con instrucciones, documentos, memoria, herramientas, controles y acciones.</p>
 </section>
-<section id="la-idea-fundamental" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="la-idea-fundamental"><span class="header-section-number">15.2</span> La idea fundamental</h2>
-<p>En un Transformer, cada token construye su representación teniendo en cuenta los demás tokens disponibles en el contexto.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>tokens
-   ↓
-embeddings e información posicional
-   ↓
-autoatención
-   ↓
-transformaciones neuronales
-   ↓
-representaciones contextuales</code></pre>
-<p>Estas operaciones se organizan en bloques que se repiten varias veces.</p>
-<p>Cada bloque recibe las representaciones producidas por el bloque anterior, establece nuevas relaciones y genera representaciones progresivamente más elaboradas.</p>
-<p>Por tanto, el Transformer no aplica una única operación de atención.</p>
-<p>Utiliza múltiples cabezas de atención, transformaciones neuronales y numerosas capas sucesivas.</p>
+<section id="diferencias-que-conviene-conservar" class="level2" data-number="29.2">
+<h2 data-number="29.2" class="anchored" data-anchor-id="diferencias-que-conviene-conservar"><span class="header-section-number">29.2</span> Diferencias que conviene conservar</h2>
+<p>Algunos conceptos pueden parecer similares desde el punto de vista del usuario, pero representan mecanismos distintos.</p>
+<section id="conocimiento-y-contexto" class="level3" data-number="29.2.1">
+<h3 data-number="29.2.1" class="anchored" data-anchor-id="conocimiento-y-contexto"><span class="header-section-number">29.2.1</span> Conocimiento y contexto</h3>
+<p>El conocimiento procede principalmente de los patrones aprendidos durante el entrenamiento.</p>
+<p>El contexto contiene la información disponible para la tarea actual.</p>
+<p>Un modelo puede conocer una tecnología y no disponer del código concreto que debe analizar.</p>
 </section>
-<section id="información-posicional" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="información-posicional"><span class="header-section-number">15.3</span> Información posicional</h2>
-<p>La atención permite relacionar tokens, pero necesita también conocer su posición dentro de la secuencia.</p>
-<p>Consideremos:</p>
+<section id="contexto-y-ventana-de-contexto" class="level3" data-number="29.2.2">
+<h3 data-number="29.2.2" class="anchored" data-anchor-id="contexto-y-ventana-de-contexto"><span class="header-section-number">29.2.2</span> Contexto y ventana de contexto</h3>
+<p>El contexto es la información que se proporciona al modelo.</p>
+<p>La ventana de contexto es el espacio limitado en el que esa información debe caber.</p>
+</section>
+<section id="contexto-y-memoria" class="level3" data-number="29.2.3">
+<h3 data-number="29.2.3" class="anchored" data-anchor-id="contexto-y-memoria"><span class="header-section-number">29.2.3</span> Contexto y memoria</h3>
+<p>El contexto presenta información durante una interacción.</p>
+<p>La memoria la conserva para poder recuperarla en el futuro.</p>
+</section>
+<section id="memoria-y-entrenamiento" class="level3" data-number="29.2.4">
+<h3 data-number="29.2.4" class="anchored" data-anchor-id="memoria-y-entrenamiento"><span class="header-section-number">29.2.4</span> Memoria y entrenamiento</h3>
+<p>La memoria almacena datos sin modificar necesariamente el modelo.</p>
+<p>El entrenamiento cambia sus parámetros.</p>
+</section>
+<section id="inferencia-y-generación" class="level3" data-number="29.2.5">
+<h3 data-number="29.2.5" class="anchored" data-anchor-id="inferencia-y-generación"><span class="header-section-number">29.2.5</span> Inferencia y generación</h3>
+<p>La inferencia es el proceso completo de utilizar el modelo entrenado.</p>
+<p>La generación es la construcción progresiva de una salida, normalmente token a token.</p>
+</section>
+<section id="modelo-y-sistema" class="level3" data-number="29.2.6">
+<h3 data-number="29.2.6" class="anchored" data-anchor-id="modelo-y-sistema"><span class="header-section-number">29.2.6</span> Modelo y sistema</h3>
+<p>El modelo interpreta y genera.</p>
+<p>El sistema selecciona información, conecta herramientas, controla permisos, valida resultados y ejecuta acciones.</p>
+</section>
+</section>
+<section id="una-respuesta-no-depende-solo-del-modelo" class="level2" data-number="29.3">
+<h2 data-number="29.3" class="anchored" data-anchor-id="una-respuesta-no-depende-solo-del-modelo"><span class="header-section-number">29.3</span> Una respuesta no depende solo del modelo</h2>
+<p>Podemos representar el comportamiento observado de forma conceptual:</p>
+<p><span class="math display">\[
+R =
+f(
+M,
+C,
+I,
+D,
+E,
+H,
+G
+)
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(R\)</span> es la respuesta;</li>
+<li><span class="math inline">\(M\)</span> es el modelo;</li>
+<li><span class="math inline">\(C\)</span> es el contexto;</li>
+<li><span class="math inline">\(I\)</span> son las instrucciones;</li>
+<li><span class="math inline">\(D\)</span> son los documentos;</li>
+<li><span class="math inline">\(E\)</span> son las herramientas externas;</li>
+<li><span class="math inline">\(H\)</span> representa el historial y la memoria;</li>
+<li><span class="math inline">\(G\)</span> es la configuración de generación.</li>
+</ul>
+<p>Esta expresión no pretende describir una fórmula ejecutable.</p>
+<p>Sirve para recordar que una respuesta no puede evaluarse observando únicamente el nombre del modelo.</p>
+<p>Dos sistemas pueden utilizar el mismo modelo y comportarse de formas muy diferentes.</p>
+<p>También pueden producir respuestas distintas porque han recuperado documentos diferentes, aplicado otras instrucciones o utilizado configuraciones de generación distintas.</p>
+</section>
+<section id="no-es-una-base-de-datos" class="level2" data-number="29.4">
+<h2 data-number="29.4" class="anchored" data-anchor-id="no-es-una-base-de-datos"><span class="header-section-number">29.4</span> No es una base de datos</h2>
+<p>Un modelo de lenguaje no recupera necesariamente una respuesta exacta de un almacén interno.</p>
+<p>Genera una continuación a partir de:</p>
+<ul>
+<li>sus parámetros;</li>
+<li>el contexto;</li>
+<li>los tokens anteriores;</li>
+<li>las probabilidades calculadas.</li>
+</ul>
+<p>Por eso puede:</p>
+<ul>
+<li>reformular una idea;</li>
+<li>combinar conceptos;</li>
+<li>generar ejemplos nuevos;</li>
+<li>responder de varias maneras;</li>
+<li>producir información plausible pero incorrecta.</li>
+</ul>
+<p>Cuando necesitamos exactitud, actualidad o trazabilidad, debemos complementar el modelo con fuentes y herramientas adecuadas.</p>
+</section>
+<section id="no-es-una-memoria-permanente" class="level2" data-number="29.5">
+<h2 data-number="29.5" class="anchored" data-anchor-id="no-es-una-memoria-permanente"><span class="header-section-number">29.5</span> No es una memoria permanente</h2>
+<p>El modelo tampoco conserva automáticamente todas las conversaciones.</p>
+<p>La continuidad puede proceder de:</p>
+<ul>
+<li>mensajes anteriores incluidos en el contexto;</li>
+<li>resúmenes;</li>
+<li>documentos;</li>
+<li>memoria persistente;</li>
+<li>estados almacenados por la aplicación.</li>
+</ul>
+<p>Para que un recuerdo influya en una respuesta, debe volver a incorporarse al contexto.</p>
+</section>
+<section id="no-aprende-normalmente-durante-la-conversación" class="level2" data-number="29.6">
+<h2 data-number="29.6" class="anchored" data-anchor-id="no-aprende-normalmente-durante-la-conversación"><span class="header-section-number">29.6</span> No aprende normalmente durante la conversación</h2>
+<p>Una corrección realizada por el usuario puede modificar las respuestas posteriores sin alterar los parámetros del modelo.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Usuario:
+En este proyecto utilizamos Java 21.
+
+Sistema:
+guarda o conserva la información.
+
+Nueva petición:
+la información se incorpora al contexto.
+
+Modelo:
+responde teniendo en cuenta Java 21.</code></pre>
+<p>Desde fuera parece aprendizaje.</p>
+<p>Técnicamente puede ser contexto o memoria.</p>
+<p>El entrenamiento es un proceso diferente que modifica los parámetros.</p>
+</section>
+<section id="no-verifica-automáticamente-la-verdad" class="level2" data-number="29.7">
+<h2 data-number="29.7" class="anchored" data-anchor-id="no-verifica-automáticamente-la-verdad"><span class="header-section-number">29.7</span> No verifica automáticamente la verdad</h2>
+<p>El modelo calcula continuaciones probables.</p>
+<p>Una frase bien escrita puede ser falsa.</p>
+<p>Una cita puede parecer auténtica y no existir.</p>
+<p>Una función puede tener un nombre razonable y no formar parte de ninguna biblioteca.</p>
+<p>Un cálculo puede parecer correcto y contener un error.</p>
+<p>Por ello, la calidad lingüística no debe confundirse con la veracidad.</p>
+<pre class="text"><code>Fluidez
+no implica
+exactitud.</code></pre>
+<p>La verificación debe apoyarse en documentos, herramientas, pruebas y fuentes fiables.</p>
+</section>
+<section id="qué-debe-preguntar-un-ingeniero" class="level2" data-number="29.8">
+<h2 data-number="29.8" class="anchored" data-anchor-id="qué-debe-preguntar-un-ingeniero"><span class="header-section-number">29.8</span> Qué debe preguntar un ingeniero</h2>
+<p>Ante el comportamiento de un sistema inteligente, resulta útil formular preguntas como:</p>
+<ul>
+<li>¿qué modelo se está utilizando?;</li>
+<li>¿qué información recibió?;</li>
+<li>¿qué instrucciones condicionaron la respuesta?;</li>
+<li>¿qué documentos se recuperaron?;</li>
+<li>¿qué memoria se incorporó?;</li>
+<li>¿qué herramientas se ejecutaron?;</li>
+<li>¿qué versión de los datos estaba vigente?;</li>
+<li>¿qué validaciones se aplicaron?;</li>
+<li>¿qué acción se realizó realmente?;</li>
+<li>¿puede reconstruirse el proceso?</li>
+</ul>
+<p>Estas preguntas permiten pasar de la impresión superficial a una evaluación técnica.</p>
+</section>
+<section id="un-ejemplo-de-extremo-a-extremo" class="level2" data-number="29.9">
+<h2 data-number="29.9" class="anchored" data-anchor-id="un-ejemplo-de-extremo-a-extremo"><span class="header-section-number">29.9</span> Un ejemplo de extremo a extremo</h2>
+<p>Supongamos que un usuario solicita:</p>
 <blockquote class="blockquote">
-<p>El perro persigue al gato.</p>
+<p>Analiza el código y propón una corrección.</p>
 </blockquote>
-<p>y:</p>
-<blockquote class="blockquote">
-<p>El gato persigue al perro.</p>
-</blockquote>
-<p>Ambas frases contienen prácticamente los mismos tokens, pero su orden modifica completamente el significado.</p>
-<p>Por ello, el Transformer añade información posicional a los embeddings de entrada.</p>
-<p>De forma conceptual:</p>
-<pre class="text"><code>embedding del token + información de posición
-                    ↓
-          representación de entrada</code></pre>
-<p>Esta información permite distinguir:</p>
-<ul>
-<li>qué token aparece antes;</li>
-<li>cuál aparece después;</li>
-<li>la distancia entre posiciones;</li>
-<li>el orden general de la secuencia.</li>
-</ul>
-<p>La propuesta original utilizaba codificaciones posicionales basadas en funciones matemáticas <span class="citation" data-cites="vaswani2017">(<a href="#ref-vaswani2017" role="doc-biblioref">Vaswani et&nbsp;al. 2017</a>)</span>. Arquitecturas posteriores han desarrollado otros mecanismos para representar la posición y las distancias relativas entre tokens.</p>
-</section>
-<section id="bloques-transformer" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="bloques-transformer"><span class="header-section-number">15.4</span> Bloques Transformer</h2>
-<p>Un Transformer se construye mediante la repetición de bloques.</p>
-<p>Aunque existen distintas variantes, un bloque suele incluir dos componentes principales:</p>
+<p>El sistema podría realizar los siguientes pasos:</p>
 <ol type="1">
-<li>un mecanismo de atención;</li>
-<li>una red neuronal que transforma individualmente la representación de cada posición.</li>
+<li>identificar el proyecto;</li>
+<li>recuperar sus reglas y decisiones;</li>
+<li>localizar los archivos relacionados;</li>
+<li>construir el contexto;</li>
+<li>transformar el contenido en tokens;</li>
+<li>procesarlo mediante el modelo;</li>
+<li>generar una propuesta;</li>
+<li>modificar temporalmente el código;</li>
+<li>ejecutar las pruebas;</li>
+<li>mostrar las diferencias;</li>
+<li>solicitar aprobación;</li>
+<li>registrar la decisión.</li>
 </ol>
-<p>De forma simplificada:</p>
-<pre class="text"><code>representaciones de entrada
-            ↓
-     atención multicabeza
-            ↓
-   red neuronal feed-forward
-            ↓
-representaciones de salida</code></pre>
-<p>A estos componentes se añaden conexiones residuales y mecanismos de normalización que facilitan el entrenamiento de redes profundas.</p>
+<p>En este proceso intervienen distintas piezas:</p>
+<pre class="text"><code>Contexto
+    contiene el código y las reglas.
+
+Memoria
+    conserva decisiones del proyecto.
+
+Modelo
+    interpreta y propone.
+
+Generación
+    produce la modificación.
+
+Herramientas
+    editan y ejecutan pruebas.
+
+Validación
+    comprueba el resultado.
+
+Usuario
+    aprueba la acción.</code></pre>
+<p>La solución no reside en una única pieza.</p>
+<p>Surge de la coordinación entre todas ellas.</p>
 </section>
-<section id="atención-multicabeza" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="atención-multicabeza"><span class="header-section-number">15.5</span> Atención multicabeza</h2>
-<p>La atención multicabeza permite calcular varias relaciones en paralelo.</p>
-<p>Cada cabeza genera sus propias consultas, claves y valores, y puede aprender a identificar patrones diferentes.</p>
-<p>Una cabeza podría resultar sensible a determinadas relaciones sintácticas; otra, a referencias entre elementos; otra, a asociaciones semánticas o temporales.</p>
-<p>No se asigna manualmente una función fija a cada cabeza. Estas especializaciones aparecen durante el entrenamiento y no siempre pueden interpretarse con claridad.</p>
-<p>El proceso puede representarse así:</p>
-<pre class="text"><code>                   ┌─ cabeza 1 ─┐
-representaciones ──┼─ cabeza 2 ─┼─ combinación → resultado
-                   ├─ cabeza 3 ─┤
-                   └─ cabeza n ─┘</code></pre>
-<p>El resultado de todas las cabezas se combina y se transforma para obtener una nueva representación de cada token.</p>
-</section>
-<section id="redes-feed-forward" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="redes-feed-forward"><span class="header-section-number">15.6</span> Redes feed-forward</h2>
-<p>Después de la atención, cada posición atraviesa una pequeña red neuronal denominada normalmente <strong>feed-forward</strong>.</p>
-<p>La atención combina información entre diferentes posiciones.</p>
-<p>La red feed-forward transforma la información resultante de cada posición.</p>
-<p>Podemos distinguir ambas funciones:</p>
+<section id="del-concepto-a-la-ingeniería" class="level2" data-number="29.10">
+<h2 data-number="29.10" class="anchored" data-anchor-id="del-concepto-a-la-ingeniería"><span class="header-section-number">29.10</span> Del concepto a la ingeniería</h2>
+<p>Comprender estos elementos no nos convierte en especialistas en entrenamiento de modelos ni en investigadores de arquitecturas neuronales.</p>
+<p>Tampoco era ese el objetivo.</p>
+<p>Ahora disponemos de una base suficiente para comprender qué ocurre cuando un sistema:</p>
 <ul>
-<li>la <strong>atención</strong> determina qué información debe relacionarse;</li>
-<li>la <strong>red feed-forward</strong> transforma esa información.</li>
+<li>recibe instrucciones;</li>
+<li>recupera información;</li>
+<li>recuerda decisiones;</li>
+<li>utiliza herramientas;</li>
+<li>genera respuestas;</li>
+<li>ejecuta tareas;</li>
+<li>coordina varios componentes.</li>
 </ul>
-<p>Estas redes utilizan los mismos parámetros para todas las posiciones de la secuencia, aunque procesan una representación contextual diferente en cada una.</p>
+<p>En los siguientes capítulos dejaremos de observar cada pieza de forma aislada.</p>
+<p>Comenzaremos a estudiar cómo se combinan para construir sistemas inteligentes capaces de participar en procesos reales.</p>
 </section>
-<section id="conexiones-residuales" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="conexiones-residuales"><span class="header-section-number">15.7</span> Conexiones residuales</h2>
-<p>Los bloques Transformer incorporan conexiones residuales.</p>
-<p>En lugar de sustituir completamente la entrada de una capa por el nuevo resultado, parte de la información original se suma a la transformación realizada.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>entrada ───────────────┐
-   ↓                   │
-transformación         │
-   ↓                   │
-resultado + entrada ←──┘</code></pre>
-<p>Estas conexiones ayudan a:</p>
+<section id="ideas-clave" class="level2" data-number="29.11">
+<h2 data-number="29.11" class="anchored" data-anchor-id="ideas-clave"><span class="header-section-number">29.11</span> Ideas clave</h2>
 <ul>
-<li>conservar información;</li>
-<li>entrenar arquitecturas con muchas capas;</li>
-<li>facilitar el flujo de la señal y del error;</li>
-<li>reducir algunos problemas asociados a redes muy profundas.</li>
+<li>Un modelo es una pieza matemática con parámetros aprendidos.</li>
+<li>El entrenamiento modifica esos parámetros.</li>
+<li>La inferencia utiliza el modelo sin modificarlo normalmente.</li>
+<li>El texto se procesa mediante tokens y representaciones numéricas.</li>
+<li>Los transformers y la atención construyen relaciones dependientes del contexto.</li>
+<li>La ventana de contexto limita la información disponible.</li>
+<li>La memoria conserva información fuera de esa ventana.</li>
+<li>La generación es probabilística y puede producir errores plausibles.</li>
+<li>Las herramientas aportan capacidades externas y verificables.</li>
+<li>El sistema completo, no solo el modelo, determina el comportamiento final.</li>
 </ul>
-</section>
-<section id="normalización" class="level2" data-number="15.8">
-<h2 data-number="15.8" class="anchored" data-anchor-id="normalización"><span class="header-section-number">15.8</span> Normalización</h2>
-<p>El Transformer también utiliza mecanismos de normalización para mantener valores internos en rangos adecuados y estabilizar el entrenamiento.</p>
-<p>La combinación habitual de:</p>
-<ul>
-<li>atención;</li>
-<li>redes feed-forward;</li>
-<li>conexiones residuales;</li>
-<li>normalización;</li>
-</ul>
-<p>forma la unidad básica que se repite a lo largo de la arquitectura.</p>
-<p>Cada nueva capa recibe las representaciones producidas por la anterior y las refina.</p>
-</section>
-<section id="encoder-y-decoder" class="level2" data-number="15.9">
-<h2 data-number="15.9" class="anchored" data-anchor-id="encoder-y-decoder"><span class="header-section-number">15.9</span> Encoder y decoder</h2>
-<p>La arquitectura presentada originalmente estaba formada por dos grandes componentes:</p>
-<ul>
-<li><strong>encoder</strong>;</li>
-<li><strong>decoder</strong>.</li>
-</ul>
-<section id="encoder" class="level3" data-number="15.9.1">
-<h3 data-number="15.9.1" class="anchored" data-anchor-id="encoder"><span class="header-section-number">15.9.1</span> Encoder</h3>
-<p>El encoder recibe una secuencia de entrada y construye representaciones contextuales de sus elementos.</p>
-<p>Cada posición puede relacionarse con todas las demás posiciones de la entrada.</p>
-<p>Por ejemplo, en un sistema de traducción, el encoder podría procesar la frase escrita en el idioma de origen.</p>
-</section>
-<section id="decoder" class="level3" data-number="15.9.2">
-<h3 data-number="15.9.2" class="anchored" data-anchor-id="decoder"><span class="header-section-number">15.9.2</span> Decoder</h3>
-<p>El decoder genera una secuencia de salida.</p>
-<p>Durante esa generación utiliza:</p>
-<ul>
-<li>los tokens ya generados;</li>
-<li>las representaciones producidas por el encoder;</li>
-<li>una máscara causal que impide acceder a posiciones futuras.</li>
-</ul>
-<p>En un sistema de traducción, el decoder produciría progresivamente la frase en el idioma de destino.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>secuencia de entrada
-        ↓
-      encoder
-        ↓
-representación contextual
-        ↓
-      decoder
-        ↓
-secuencia de salida</code></pre>
-</section>
-</section>
-<section id="variantes-de-la-arquitectura" class="level2" data-number="15.10">
-<h2 data-number="15.10" class="anchored" data-anchor-id="variantes-de-la-arquitectura"><span class="header-section-number">15.10</span> Variantes de la arquitectura</h2>
-<p>No todos los modelos basados en Transformers utilizan simultáneamente encoder y decoder.</p>
-<p>A partir de la arquitectura original aparecieron varias familias.</p>
-<section id="modelos-de-tipo-encoder" class="level3" data-number="15.10.1">
-<h3 data-number="15.10.1" class="anchored" data-anchor-id="modelos-de-tipo-encoder"><span class="header-section-number">15.10.1</span> Modelos de tipo encoder</h3>
-<p>Utilizan principalmente bloques encoder.</p>
-<p>Están orientados a construir representaciones del texto y resultan adecuados para tareas como:</p>
-<ul>
-<li>clasificación;</li>
-<li>extracción de información;</li>
-<li>análisis de contenido;</li>
-<li>comparación semántica;</li>
-<li>comprensión de documentos.</li>
-</ul>
-</section>
-<section id="modelos-de-tipo-decoder" class="level3" data-number="15.10.2">
-<h3 data-number="15.10.2" class="anchored" data-anchor-id="modelos-de-tipo-decoder"><span class="header-section-number">15.10.2</span> Modelos de tipo decoder</h3>
-<p>Utilizan bloques decoder con atención causal.</p>
-<p>Generan el texto progresivamente, prediciendo cada token a partir de los anteriores.</p>
-<p>Son la base de muchos modelos generativos y asistentes conversacionales.</p>
-</section>
-<section id="modelos-encoder-decoder" class="level3" data-number="15.10.3">
-<h3 data-number="15.10.3" class="anchored" data-anchor-id="modelos-encoder-decoder"><span class="header-section-number">15.10.3</span> Modelos encoder-decoder</h3>
-<p>Mantienen ambos componentes.</p>
-<p>Resultan especialmente adecuados cuando se transforma una secuencia de entrada en otra secuencia de salida:</p>
-<ul>
-<li>traducción;</li>
-<li>resumen;</li>
-<li>reescritura;</li>
-<li>conversión entre formatos;</li>
-<li>generación condicionada por un documento.</li>
-</ul>
-<p>Estas categorías comparten los principios fundamentales del Transformer, pero organizan sus bloques de manera diferente según el objetivo.</p>
-</section>
-</section>
-<section id="procesamiento-en-paralelo" class="level2" data-number="15.11">
-<h2 data-number="15.11" class="anchored" data-anchor-id="procesamiento-en-paralelo"><span class="header-section-number">15.11</span> Procesamiento en paralelo</h2>
-<p>Una ventaja importante del Transformer es que, durante el entrenamiento, puede procesar simultáneamente múltiples posiciones de una secuencia.</p>
-<p>En una arquitectura estrictamente recurrente, el cálculo de una posición depende del estado producido en la posición anterior.</p>
-<p>En un Transformer, las relaciones entre tokens pueden calcularse mediante operaciones matriciales paralelas.</p>
-<p>Esto permite aprovechar de forma eficiente hardware especializado, como las unidades de procesamiento gráfico.</p>
-<p>La capacidad de paralelización contribuyó a entrenar modelos con:</p>
-<ul>
-<li>mayores volúmenes de datos;</li>
-<li>más parámetros;</li>
-<li>más capas;</li>
-<li>vocabularios amplios;</li>
-<li>contextos progresivamente mayores.</li>
-</ul>
-<p>El Transformer no es importante únicamente por representar mejor ciertas relaciones lingüísticas. También hizo viable escalar el entrenamiento de modelos de lenguaje.</p>
-</section>
-<section id="capas-y-representaciones" class="level2" data-number="15.12">
-<h2 data-number="15.12" class="anchored" data-anchor-id="capas-y-representaciones"><span class="header-section-number">15.12</span> Capas y representaciones</h2>
-<p>Las representaciones no permanecen iguales mientras atraviesan el Transformer.</p>
-<p>En las primeras capas pueden aparecer relaciones relativamente locales o estructurales.</p>
-<p>En capas posteriores, las representaciones pueden integrar información procedente de partes más amplias del contexto.</p>
-<p>No debemos imaginar, sin embargo, una jerarquía perfectamente organizada en la que cada capa tenga una función única y fácilmente interpretable.</p>
-<p>El conocimiento y el comportamiento del modelo están distribuidos entre:</p>
-<ul>
-<li>numerosas capas;</li>
-<li>múltiples cabezas de atención;</li>
-<li>redes feed-forward;</li>
-<li>embeddings;</li>
-<li>conexiones internas;</li>
-<li>millones o miles de millones de parámetros.</li>
-</ul>
-<p>Las capacidades del modelo emergen de la interacción conjunta de estos componentes.</p>
-</section>
-<section id="transformer-y-ventana-de-contexto" class="level2" data-number="15.13">
-<h2 data-number="15.13" class="anchored" data-anchor-id="transformer-y-ventana-de-contexto"><span class="header-section-number">15.13</span> Transformer y ventana de contexto</h2>
-<p>La atención se calcula sobre los tokens disponibles dentro de la ventana de contexto.</p>
-<p>Cuanto mayor sea el contexto, mayor puede ser el número de relaciones que deben evaluarse.</p>
-<p>En la formulación clásica, el coste de la autoatención crece rápidamente al aumentar la longitud de la secuencia, porque cada posición puede compararse con muchas otras posiciones.</p>
-<p>Por esta razón, procesar contextos muy extensos requiere una cantidad considerable de memoria y capacidad de cálculo.</p>
-<p>Las arquitecturas posteriores han introducido distintas optimizaciones para:</p>
-<ul>
-<li>reducir el coste de la atención;</li>
-<li>trabajar con secuencias más largas;</li>
-<li>reutilizar cálculos anteriores;</li>
-<li>seleccionar relaciones relevantes;</li>
-<li>distribuir el procesamiento.</li>
-</ul>
-<p>La ventana de contexto no es, por tanto, un límite puramente arbitrario. Está relacionada también con el coste técnico de procesar las relaciones entre tokens.</p>
-</section>
-<section id="el-transformer-no-es-un-llm" class="level2" data-number="15.14">
-<h2 data-number="15.14" class="anchored" data-anchor-id="el-transformer-no-es-un-llm"><span class="header-section-number">15.14</span> El Transformer no es un LLM</h2>
-<p>Transformer y LLM tampoco son conceptos equivalentes.</p>
-<p>El Transformer es una <strong>arquitectura</strong>.</p>
-<p>Un LLM es un modelo de lenguaje de gran escala que normalmente utiliza una arquitectura basada en Transformers y ha sido entrenado con grandes cantidades de datos.</p>
-<p>Podemos expresarlo así:</p>
-<blockquote class="blockquote">
-<p>Transformer = arquitectura</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>modelo de lenguaje = modelo entrenado para trabajar con lenguaje</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>LLM = modelo de lenguaje de gran escala</p>
-</blockquote>
-<p>Un Transformer puede utilizarse para tareas que no son estrictamente lingüísticas.</p>
-<p>Existen modelos basados en esta arquitectura para trabajar con:</p>
-<ul>
-<li>imágenes;</li>
-<li>audio;</li>
-<li>vídeo;</li>
-<li>datos biológicos;</li>
-<li>series temporales;</li>
-<li>sistemas multimodales.</li>
-</ul>
-<p>La arquitectura define cómo se procesa y relaciona la información. El entrenamiento y los datos determinan qué capacidad concreta desarrolla el modelo.</p>
-</section>
-<section id="una-arquitectura-dentro-de-un-sistema-inteligente" class="level2" data-number="15.15">
-<h2 data-number="15.15" class="anchored" data-anchor-id="una-arquitectura-dentro-de-un-sistema-inteligente"><span class="header-section-number">15.15</span> Una arquitectura dentro de un sistema inteligente</h2>
-<p>Un modelo basado en Transformers continúa siendo solo un componente.</p>
-<p>Para convertirlo en un sistema inteligente útil, sigue siendo necesario decidir:</p>
-<ul>
-<li>qué información recibe;</li>
-<li>cómo se construye el contexto;</li>
-<li>qué modelo se utiliza;</li>
-<li>qué resultados son válidos;</li>
-<li>cómo se verifican;</li>
-<li>qué herramientas puede emplear;</li>
-<li>qué acciones puede ejecutar;</li>
-<li>qué controles se aplican;</li>
-<li>quién asume la responsabilidad.</li>
-</ul>
-<p>La arquitectura aporta capacidad para representar, relacionar y generar información.</p>
-<p>El sistema inteligente determina cómo se utiliza esa capacidad.</p>
-</section>
-<section id="del-transformer-al-modelo-de-lenguaje" class="level2" data-number="15.16">
-<h2 data-number="15.16" class="anchored" data-anchor-id="del-transformer-al-modelo-de-lenguaje"><span class="header-section-number">15.16</span> Del Transformer al modelo de lenguaje</h2>
-<p>El recorrido conceptual queda ahora así:</p>
-<blockquote class="blockquote">
-<p>texto → tokens → embeddings → información posicional → atención multicabeza → bloques Transformer → representaciones contextuales</p>
-</blockquote>
-<p>Todavía falta explicar cómo se utiliza esta arquitectura para aprender el lenguaje.</p>
-<p>Un Transformer no nace sabiendo escribir, resumir, traducir o responder preguntas. Estas capacidades aparecen como resultado de un proceso de entrenamiento sobre grandes cantidades de secuencias.</p>
-<p>En la siguiente sección estudiaremos qué es un <strong>modelo de lenguaje</strong>, qué significa predecir el siguiente token y cómo esa tarea aparentemente sencilla puede dar lugar a capacidades mucho más amplias.</p>
+<p>Ya no observamos una respuesta aislada.</p>
+<p>Empezamos a ver el sistema que la produce.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-vaswani2017" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et&nbsp;al. 2017. <span>«Attention Is All You Need»</span>. <em>Advances in Neural Information Processing Systems</em> 30.
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1191,13 +1131,13 @@ Vaswani, Ashish, Noam Shazeer, Niki Parmar, et&nbsp;al. 2017. <span>«Attention 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../chapters/02-conceptos/05-attention.html" class="pagination-link" aria-label="Attention">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Attention</span></span>
+      <a href="../../chapters/04-marco/12-system.html" class="pagination-link" aria-label="Modelo y Sistema">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Modelo y Sistema</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/02-conceptos/07-modelos.html" class="pagination-link" aria-label="Modelos de lenguaje">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelos de lenguaje</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../licenses.html" class="pagination-link" aria-label="Licencias">
+        <span class="nav-page-text">Licencias</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

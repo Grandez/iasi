@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Transformers – Ingeniería asistida por sistemas inteligentes</title>
+<title>20&nbsp; Embeddings – Ingeniería asistida por sistemas inteligentes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,26 +26,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -54,8 +35,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/02-conceptos/07-modelos.html" rel="next">
-<link href="../../chapters/02-conceptos/05-attention.html" rel="prev">
+<link href="../../chapters/04-marco/05-transformers.html" rel="next">
+<link href="../../chapters/04-marco/03-window.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -93,6 +74,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../iasi.css">
 </head>
@@ -141,7 +151,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/index.html">Conceptos de Sistemas Inteligentes y LLM</a></li><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/06-transformers.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-marco/index.html">Conceptos fundamentales</a></li><li class="breadcrumb-item"><a href="../../chapters/04-marco/04-embeddings.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Embeddings</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -271,7 +281,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/02-conceptos/06-transformers.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../chapters/02-conceptos/06-transformers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
   </div>
 </li>
@@ -322,7 +332,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/04-marco/04-embeddings.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/04-marco/04-embeddings.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Embeddings</span></span></a>
   </div>
 </li>
@@ -398,43 +408,30 @@ div.csl-indent {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#una-arquitectura-basada-en-atención" id="toc-una-arquitectura-basada-en-atención" class="nav-link active" data-scroll-target="#una-arquitectura-basada-en-atención"><span class="header-section-number">15</span> Una arquitectura basada en atención</a>
-  <ul class="collapse">
-  <li><a href="#antes-del-transformer" id="toc-antes-del-transformer" class="nav-link" data-scroll-target="#antes-del-transformer"><span class="header-section-number">15.1</span> Antes del Transformer</a></li>
-  <li><a href="#la-idea-fundamental" id="toc-la-idea-fundamental" class="nav-link" data-scroll-target="#la-idea-fundamental"><span class="header-section-number">15.2</span> La idea fundamental</a></li>
-  <li><a href="#información-posicional" id="toc-información-posicional" class="nav-link" data-scroll-target="#información-posicional"><span class="header-section-number">15.3</span> Información posicional</a></li>
-  <li><a href="#bloques-transformer" id="toc-bloques-transformer" class="nav-link" data-scroll-target="#bloques-transformer"><span class="header-section-number">15.4</span> Bloques Transformer</a></li>
-  <li><a href="#atención-multicabeza" id="toc-atención-multicabeza" class="nav-link" data-scroll-target="#atención-multicabeza"><span class="header-section-number">15.5</span> Atención multicabeza</a></li>
-  <li><a href="#redes-feed-forward" id="toc-redes-feed-forward" class="nav-link" data-scroll-target="#redes-feed-forward"><span class="header-section-number">15.6</span> Redes feed-forward</a></li>
-  <li><a href="#conexiones-residuales" id="toc-conexiones-residuales" class="nav-link" data-scroll-target="#conexiones-residuales"><span class="header-section-number">15.7</span> Conexiones residuales</a></li>
-  <li><a href="#normalización" id="toc-normalización" class="nav-link" data-scroll-target="#normalización"><span class="header-section-number">15.8</span> Normalización</a></li>
-  <li><a href="#encoder-y-decoder" id="toc-encoder-y-decoder" class="nav-link" data-scroll-target="#encoder-y-decoder"><span class="header-section-number">15.9</span> Encoder y decoder</a>
-  <ul class="collapse">
-  <li><a href="#encoder" id="toc-encoder" class="nav-link" data-scroll-target="#encoder"><span class="header-section-number">15.9.1</span> Encoder</a></li>
-  <li><a href="#decoder" id="toc-decoder" class="nav-link" data-scroll-target="#decoder"><span class="header-section-number">15.9.2</span> Decoder</a></li>
-  </ul></li>
-  <li><a href="#variantes-de-la-arquitectura" id="toc-variantes-de-la-arquitectura" class="nav-link" data-scroll-target="#variantes-de-la-arquitectura"><span class="header-section-number">15.10</span> Variantes de la arquitectura</a>
-  <ul class="collapse">
-  <li><a href="#modelos-de-tipo-encoder" id="toc-modelos-de-tipo-encoder" class="nav-link" data-scroll-target="#modelos-de-tipo-encoder"><span class="header-section-number">15.10.1</span> Modelos de tipo encoder</a></li>
-  <li><a href="#modelos-de-tipo-decoder" id="toc-modelos-de-tipo-decoder" class="nav-link" data-scroll-target="#modelos-de-tipo-decoder"><span class="header-section-number">15.10.2</span> Modelos de tipo decoder</a></li>
-  <li><a href="#modelos-encoder-decoder" id="toc-modelos-encoder-decoder" class="nav-link" data-scroll-target="#modelos-encoder-decoder"><span class="header-section-number">15.10.3</span> Modelos encoder-decoder</a></li>
-  </ul></li>
-  <li><a href="#procesamiento-en-paralelo" id="toc-procesamiento-en-paralelo" class="nav-link" data-scroll-target="#procesamiento-en-paralelo"><span class="header-section-number">15.11</span> Procesamiento en paralelo</a></li>
-  <li><a href="#capas-y-representaciones" id="toc-capas-y-representaciones" class="nav-link" data-scroll-target="#capas-y-representaciones"><span class="header-section-number">15.12</span> Capas y representaciones</a></li>
-  <li><a href="#transformer-y-ventana-de-contexto" id="toc-transformer-y-ventana-de-contexto" class="nav-link" data-scroll-target="#transformer-y-ventana-de-contexto"><span class="header-section-number">15.13</span> Transformer y ventana de contexto</a></li>
-  <li><a href="#el-transformer-no-es-un-llm" id="toc-el-transformer-no-es-un-llm" class="nav-link" data-scroll-target="#el-transformer-no-es-un-llm"><span class="header-section-number">15.14</span> El Transformer no es un LLM</a></li>
-  <li><a href="#una-arquitectura-dentro-de-un-sistema-inteligente" id="toc-una-arquitectura-dentro-de-un-sistema-inteligente" class="nav-link" data-scroll-target="#una-arquitectura-dentro-de-un-sistema-inteligente"><span class="header-section-number">15.15</span> Una arquitectura dentro de un sistema inteligente</a></li>
-  <li><a href="#del-transformer-al-modelo-de-lenguaje" id="toc-del-transformer-al-modelo-de-lenguaje" class="nav-link" data-scroll-target="#del-transformer-al-modelo-de-lenguaje"><span class="header-section-number">15.16</span> Del Transformer al modelo de lenguaje</a></li>
-  </ul></li>
+  <li><a href="#de-un-identificador-a-una-representación" id="toc-de-un-identificador-a-una-representación" class="nav-link active" data-scroll-target="#de-un-identificador-a-una-representación"><span class="header-section-number">20.1</span> De un identificador a una representación</a></li>
+  <li><a href="#un-espacio-de-relaciones" id="toc-un-espacio-de-relaciones" class="nav-link" data-scroll-target="#un-espacio-de-relaciones"><span class="header-section-number">20.2</span> Un espacio de relaciones</a></li>
+  <li><a href="#muchas-dimensiones" id="toc-muchas-dimensiones" class="nav-link" data-scroll-target="#muchas-dimensiones"><span class="header-section-number">20.3</span> Muchas dimensiones</a></li>
+  <li><a href="#similitud-entre-embeddings" id="toc-similitud-entre-embeddings" class="nav-link" data-scroll-target="#similitud-entre-embeddings"><span class="header-section-number">20.4</span> Similitud entre embeddings</a></li>
+  <li><a href="#embeddings-y-búsqueda-semántica" id="toc-embeddings-y-búsqueda-semántica" class="nav-link" data-scroll-target="#embeddings-y-búsqueda-semántica"><span class="header-section-number">20.5</span> Embeddings y búsqueda semántica</a></li>
+  <li><a href="#los-documentos-se-fragmentan" id="toc-los-documentos-se-fragmentan" class="nav-link" data-scroll-target="#los-documentos-se-fragmentan"><span class="header-section-number">20.6</span> Los documentos se fragmentan</a></li>
+  <li><a href="#el-embedding-no-es-el-contenido" id="toc-el-embedding-no-es-el-contenido" class="nav-link" data-scroll-target="#el-embedding-no-es-el-contenido"><span class="header-section-number">20.7</span> El embedding no es el contenido</a></li>
+  <li><a href="#embeddings-de-tokens" id="toc-embeddings-de-tokens" class="nav-link" data-scroll-target="#embeddings-de-tokens"><span class="header-section-number">20.8</span> Embeddings de tokens</a></li>
+  <li><a href="#el-significado-depende-del-contexto" id="toc-el-significado-depende-del-contexto" class="nav-link" data-scroll-target="#el-significado-depende-del-contexto"><span class="header-section-number">20.9</span> El significado depende del contexto</a></li>
+  <li><a href="#relaciones-entre-conceptos" id="toc-relaciones-entre-conceptos" class="nav-link" data-scroll-target="#relaciones-entre-conceptos"><span class="header-section-number">20.10</span> Relaciones entre conceptos</a></li>
+  <li><a href="#embeddings-más-allá-del-texto" id="toc-embeddings-más-allá-del-texto" class="nav-link" data-scroll-target="#embeddings-más-allá-del-texto"><span class="header-section-number">20.11</span> Embeddings más allá del texto</a></li>
+  <li><a href="#embeddings-y-recomendaciones" id="toc-embeddings-y-recomendaciones" class="nav-link" data-scroll-target="#embeddings-y-recomendaciones"><span class="header-section-number">20.12</span> Embeddings y recomendaciones</a></li>
+  <li><a href="#qué-no-garantizan" id="toc-qué-no-garantizan" class="nav-link" data-scroll-target="#qué-no-garantizan"><span class="header-section-number">20.13</span> Qué no garantizan</a></li>
+  <li><a href="#embeddings-y-conocimiento" id="toc-embeddings-y-conocimiento" class="nav-link" data-scroll-target="#embeddings-y-conocimiento"><span class="header-section-number">20.14</span> Embeddings y conocimiento</a></li>
+  <li><a href="#idea-clave" id="toc-idea-clave" class="nav-link" data-scroll-target="#idea-clave"><span class="header-section-number">20.15</span> Idea clave</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/index.html">Conceptos de Sistemas Inteligentes y LLM</a></li><li class="breadcrumb-item"><a href="../../chapters/02-conceptos/06-transformers.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-marco/index.html">Conceptos fundamentales</a></li><li class="breadcrumb-item"><a href="../../chapters/04-marco/04-embeddings.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Embeddings</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformers</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Embeddings</span></h1>
 </div>
 
 
@@ -451,341 +448,369 @@ div.csl-indent {
 </header>
 
 
-<section id="una-arquitectura-basada-en-atención" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> Una arquitectura basada en atención</h1>
-<p>En las secciones anteriores hemos presentado las piezas necesarias para representar y relacionar el lenguaje:</p>
-<ul>
-<li>los <strong>tokens</strong> dividen el texto en unidades procesables;</li>
-<li>los <strong>embeddings</strong> convierten esas unidades en representaciones numéricas;</li>
-<li>la <strong>atención</strong> permite relacionar cada token con los demás elementos del contexto.</li>
-</ul>
-<p>El <strong>Transformer</strong> reúne estas capacidades dentro de una arquitectura completa para procesar secuencias.</p>
-<p>Fue presentado en 2017 por Vaswani y sus colaboradores en el artículo <em>Attention Is All You Need</em> <span class="citation" data-cites="vaswani2017">(<a href="#ref-vaswani2017" role="doc-biblioref">Vaswani et&nbsp;al. 2017</a>)</span>. Su propuesta consistía en utilizar la atención como mecanismo central del modelo, sin depender de redes recurrentes o convolucionales para procesar la secuencia.</p>
-<p>Esta arquitectura constituye la base de gran parte de los modelos de lenguaje modernos.</p>
-<section id="antes-del-transformer" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="antes-del-transformer"><span class="header-section-number">15.1</span> Antes del Transformer</h2>
-<p>El lenguaje es una secuencia ordenada.</p>
-<p>Para interpretar una frase, el modelo debe considerar:</p>
-<ul>
-<li>qué elementos aparecen;</li>
-<li>en qué orden;</li>
-<li>qué relaciones existen entre ellos;</li>
-<li>qué información anterior resulta relevante;</li>
-<li>cómo cambia el significado según el contexto.</li>
-</ul>
-<p>Antes de la aparición del Transformer, muchas arquitecturas procesaban las secuencias de forma principalmente progresiva.</p>
-<p>Un elemento se analizaba después del anterior, manteniendo un estado que intentaba conservar la información relevante:</p>
-<pre class="text"><code>token 1 → token 2 → token 3 → token 4</code></pre>
-<p>Este enfoque permitía trabajar con secuencias, pero presentaba algunas dificultades:</p>
-<ul>
-<li>limitaba la paralelización del entrenamiento;</li>
-<li>complicaba el tratamiento de relaciones muy distantes;</li>
-<li>obligaba a transportar información a través de numerosos pasos;</li>
-<li>podía perder detalles importantes en secuencias largas.</li>
-</ul>
-<p>El Transformer propone una organización diferente.</p>
-<p>En lugar de recorrer necesariamente el texto token a token para relacionar sus elementos, permite comparar directamente múltiples posiciones mediante autoatención.</p>
-</section>
-<section id="la-idea-fundamental" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="la-idea-fundamental"><span class="header-section-number">15.2</span> La idea fundamental</h2>
-<p>En un Transformer, cada token construye su representación teniendo en cuenta los demás tokens disponibles en el contexto.</p>
+<p>En el apartado dedicado a los tokens vimos que el texto se divide en unidades y que cada token recibe un identificador numérico.</p>
+<p>Sin embargo, ese identificador solo permite distinguir un token de otro.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>"casa"   → 1842
+"hogar"  → 7315
+"avión"  → 9261</code></pre>
+<p>Estos números funcionan como códigos dentro del vocabulario del modelo, pero no expresan que «casa» y «hogar» están relacionados ni que ambos conceptos tienen poco que ver con «avión».</p>
+<p>Para representar esas relaciones se utilizan los <strong>embeddings</strong>.</p>
+<p>Un embedding es una representación numérica de un elemento mediante un conjunto de valores. Habitualmente se expresa como un vector.</p>
 <p>De forma simplificada:</p>
-<pre class="text"><code>tokens
-   ↓
-embeddings e información posicional
-   ↓
-autoatención
-   ↓
-transformaciones neuronales
-   ↓
-representaciones contextuales</code></pre>
-<p>Estas operaciones se organizan en bloques que se repiten varias veces.</p>
-<p>Cada bloque recibe las representaciones producidas por el bloque anterior, establece nuevas relaciones y genera representaciones progresivamente más elaboradas.</p>
-<p>Por tanto, el Transformer no aplica una única operación de atención.</p>
-<p>Utiliza múltiples cabezas de atención, transformaciones neuronales y numerosas capas sucesivas.</p>
+<p><span class="math display">\[
+\text{elemento} \longrightarrow
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+\vdots \\
+x_n
+\end{bmatrix}
+\]</span></p>
+<p>El elemento puede ser un token, una palabra, una frase, un documento, una imagen o cualquier otra unidad que el sistema sea capaz de representar.</p>
+<section id="de-un-identificador-a-una-representación" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="de-un-identificador-a-una-representación"><span class="header-section-number">20.1</span> De un identificador a una representación</h2>
+<p>Un identificador de token indica qué token estamos procesando.</p>
+<p>Un embedding intenta representar características y relaciones aprendidas a partir de los datos.</p>
+<p>Podemos imaginar, de forma puramente ilustrativa, los siguientes vectores:</p>
+<p><span class="math display">\[
+\text{casa} =
+\begin{bmatrix}
+0.82 \
+0.71 \
+0.12
+\end{bmatrix}
+\qquad
+\text{hogar} =
+\begin{bmatrix}
+0.79 \
+0.75 \
+0.15
+\end{bmatrix}
+\qquad
+\text{avión} =
+\begin{bmatrix}
+0.10 \
+0.18 \
+0.91
+\end{bmatrix}
+\]</span></p>
+<p>Los vectores de «casa» y «hogar» se encuentran próximos entre sí, mientras que el de «avión» aparece más alejado.</p>
+<p>Los valores anteriores no corresponden a un modelo real. Solo muestran la idea: elementos utilizados en contextos parecidos tienden a obtener representaciones relacionadas.</p>
+<p>El embedding no contiene una definición escrita del elemento. Distribuye información sobre él entre muchas dimensiones numéricas.</p>
 </section>
-<section id="información-posicional" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="información-posicional"><span class="header-section-number">15.3</span> Información posicional</h2>
-<p>La atención permite relacionar tokens, pero necesita también conocer su posición dentro de la secuencia.</p>
-<p>Consideremos:</p>
-<blockquote class="blockquote">
-<p>El perro persigue al gato.</p>
-</blockquote>
-<p>y:</p>
-<blockquote class="blockquote">
-<p>El gato persigue al perro.</p>
-</blockquote>
-<p>Ambas frases contienen prácticamente los mismos tokens, pero su orden modifica completamente el significado.</p>
-<p>Por ello, el Transformer añade información posicional a los embeddings de entrada.</p>
-<p>De forma conceptual:</p>
-<pre class="text"><code>embedding del token + información de posición
-                    ↓
-          representación de entrada</code></pre>
-<p>Esta información permite distinguir:</p>
+<section id="un-espacio-de-relaciones" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="un-espacio-de-relaciones"><span class="header-section-number">20.2</span> Un espacio de relaciones</h2>
+<p>Los embeddings permiten situar los elementos dentro de un espacio matemático.</p>
+<p>En ese espacio, la posición relativa importa más que cada valor aislado.</p>
+<p>Los elementos próximos pueden compartir significado, función, uso o contexto. Los elementos alejados pueden presentar relaciones menores.</p>
+<p>Por ejemplo, podrían aparecer agrupaciones relacionadas con:</p>
 <ul>
-<li>qué token aparece antes;</li>
-<li>cuál aparece después;</li>
-<li>la distancia entre posiciones;</li>
-<li>el orden general de la secuencia.</li>
+<li>animales;</li>
+<li>ciudades;</li>
+<li>tecnologías;</li>
+<li>emociones;</li>
+<li>operaciones financieras;</li>
+<li>conceptos jurídicos;</li>
+<li>funciones de programación.</li>
 </ul>
-<p>La propuesta original utilizaba codificaciones posicionales basadas en funciones matemáticas <span class="citation" data-cites="vaswani2017">(<a href="#ref-vaswani2017" role="doc-biblioref">Vaswani et&nbsp;al. 2017</a>)</span>. Arquitecturas posteriores han desarrollado otros mecanismos para representar la posición y las distancias relativas entre tokens.</p>
+<p>No es necesario que alguien defina manualmente estas categorías. El modelo aprende patrones a partir de los datos utilizados durante el entrenamiento.</p>
+<p>Podemos imaginar el espacio de embeddings como un mapa sin nombres visibles. Cada punto representa un elemento y las distancias ayudan a expresar cómo se relaciona con los demás.</p>
 </section>
-<section id="bloques-transformer" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="bloques-transformer"><span class="header-section-number">15.4</span> Bloques Transformer</h2>
-<p>Un Transformer se construye mediante la repetición de bloques.</p>
-<p>Aunque existen distintas variantes, un bloque suele incluir dos componentes principales:</p>
+<section id="muchas-dimensiones" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="muchas-dimensiones"><span class="header-section-number">20.3</span> Muchas dimensiones</h2>
+<p>Para representar un embedding hemos utilizado tres valores, porque resulta fácil mostrarlos en una página.</p>
+<p>Los embeddings reales pueden contener cientos o miles de dimensiones.</p>
+<p>Un vector de dimensión (n) puede expresarse como:</p>
+<p><span class="math display">\[
+\mathbf{e} =
+\begin{bmatrix}
+e_1,
+e_2,
+e_3,
+\ldots,
+e_n
+\end{bmatrix}
+\]</span></p>
+<p>Cada dimensión no tiene por qué corresponder a una característica reconocible como «color», «tamaño» o «formalidad».</p>
+<p>El significado suele estar distribuido entre muchas dimensiones. No podemos observar una posición concreta del vector y afirmar que representa una idea determinada de forma aislada.</p>
+<p>El sistema aprende una representación útil para relacionar elementos y realizar cálculos, no una tabla de características diseñada para que una persona pueda interpretarla directamente.</p>
+</section>
+<section id="similitud-entre-embeddings" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="similitud-entre-embeddings"><span class="header-section-number">20.4</span> Similitud entre embeddings</h2>
+<p>Una vez representados dos elementos mediante vectores, podemos calcular cuánto se parecen.</p>
+<p>Una medida habitual es la <strong>similitud del coseno</strong>.</p>
+<p>Dados dos vectores <span class="math inline">\(\mathbf{a}\)</span> y <span class="math inline">\(\mathbf{b}\)</span>:</p>
+<p><span class="math display">\[
+\operatorname{sim}(\mathbf{a},\mathbf{b})
+=
+\frac{\mathbf{a}\cdot\mathbf{b}}
+{\lVert\mathbf{a}\rVert\lVert\mathbf{b}\rVert}
+\]</span></p>
+<p>El numerador representa el producto escalar de ambos vectores y el denominador normaliza el resultado utilizando sus magnitudes.</p>
+<p>Sin entrar en el desarrollo matemático, esta operación permite comparar la orientación de los vectores.</p>
+<p>Cuando dos vectores apuntan en direcciones parecidas, su similitud es alta. Cuando apuntan en direcciones diferentes, su similitud es menor.</p>
+<p>Esta medida se utiliza frecuentemente para localizar elementos relacionados.</p>
+<p>Por ejemplo, ante la consulta:</p>
+<blockquote class="blockquote">
+<p>política de vacaciones de la empresa</p>
+</blockquote>
+<p>un sistema puede buscar fragmentos documentales cuyos embeddings sean próximos al embedding de la consulta.</p>
+<p>No necesita que ambos textos contengan exactamente las mismas palabras. Puede encontrar también expresiones como:</p>
+<ul>
+<li>permisos y días libres;</li>
+<li>descanso anual;</li>
+<li>solicitud de vacaciones;</li>
+<li>calendario laboral;</li>
+<li>ausencias retribuidas.</li>
+</ul>
+<p>La búsqueda deja de depender únicamente de coincidencias literales.</p>
+</section>
+<section id="embeddings-y-búsqueda-semántica" class="level2" data-number="20.5">
+<h2 data-number="20.5" class="anchored" data-anchor-id="embeddings-y-búsqueda-semántica"><span class="header-section-number">20.5</span> Embeddings y búsqueda semántica</h2>
+<p>Una búsqueda tradicional puede localizar documentos mediante palabras exactas.</p>
+<p>Si buscamos:</p>
+<pre class="text"><code>ventana de contexto</code></pre>
+<p>el sistema puede recuperar textos que contengan literalmente esa expresión.</p>
+<p>Una búsqueda basada en embeddings intenta recuperar contenido relacionado por significado.</p>
+<p>Podría encontrar también:</p>
+<ul>
+<li>límite de tokens del modelo;</li>
+<li>cantidad máxima de información procesable;</li>
+<li>longitud máxima de entrada;</li>
+<li>capacidad de contexto;</li>
+<li>límite de conversación.</li>
+</ul>
+<p>Este tipo de búsqueda se denomina habitualmente <strong>búsqueda semántica</strong>.</p>
+<p>Su funcionamiento general puede resumirse así:</p>
 <ol type="1">
-<li>un mecanismo de atención;</li>
-<li>una red neuronal que transforma individualmente la representación de cada posición.</li>
+<li>se calcula el embedding de cada documento o fragmento;</li>
+<li>los vectores se almacenan junto con su contenido;</li>
+<li>se calcula el embedding de la consulta;</li>
+<li>se buscan los vectores más próximos;</li>
+<li>se recuperan los fragmentos asociados.</li>
 </ol>
 <p>De forma simplificada:</p>
-<pre class="text"><code>representaciones de entrada
-            ↓
-     atención multicabeza
-            ↓
-   red neuronal feed-forward
-            ↓
-representaciones de salida</code></pre>
-<p>A estos componentes se añaden conexiones residuales y mecanismos de normalización que facilitan el entrenamiento de redes profundas.</p>
+<p><span class="math display">\[
+\text{consulta}
+\longrightarrow
+\text{embedding}
+\longrightarrow
+\text{vectores próximos}
+\longrightarrow
+\text{documentos relacionados}
+\]</span></p>
+<p>Esta técnica será importante cuando estudiemos sistemas capaces de incorporar información externa al contexto del modelo.</p>
 </section>
-<section id="atención-multicabeza" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="atención-multicabeza"><span class="header-section-number">15.5</span> Atención multicabeza</h2>
-<p>La atención multicabeza permite calcular varias relaciones en paralelo.</p>
-<p>Cada cabeza genera sus propias consultas, claves y valores, y puede aprender a identificar patrones diferentes.</p>
-<p>Una cabeza podría resultar sensible a determinadas relaciones sintácticas; otra, a referencias entre elementos; otra, a asociaciones semánticas o temporales.</p>
-<p>No se asigna manualmente una función fija a cada cabeza. Estas especializaciones aparecen durante el entrenamiento y no siempre pueden interpretarse con claridad.</p>
-<p>El proceso puede representarse así:</p>
-<pre class="text"><code>                   ┌─ cabeza 1 ─┐
-representaciones ──┼─ cabeza 2 ─┼─ combinación → resultado
-                   ├─ cabeza 3 ─┤
-                   └─ cabeza n ─┘</code></pre>
-<p>El resultado de todas las cabezas se combina y se transforma para obtener una nueva representación de cada token.</p>
+<section id="los-documentos-se-fragmentan" class="level2" data-number="20.6">
+<h2 data-number="20.6" class="anchored" data-anchor-id="los-documentos-se-fragmentan"><span class="header-section-number">20.6</span> Los documentos se fragmentan</h2>
+<p>Un documento completo puede contener numerosos temas.</p>
+<p>Si generamos un único embedding para un libro de quinientas páginas, la representación será demasiado general para localizar una explicación concreta.</p>
+<p>Por eso, los documentos suelen dividirse en fragmentos más pequeños.</p>
+<p>Cada fragmento obtiene su propio embedding:</p>
+<pre class="text"><code>Documento
+├── Fragmento 1 → embedding 1
+├── Fragmento 2 → embedding 2
+├── Fragmento 3 → embedding 3
+└── Fragmento 4 → embedding 4</code></pre>
+<p>Cuando se realiza una consulta, el sistema recupera los fragmentos cuyos vectores parecen más relacionados.</p>
+<p>El tamaño y la forma de dividir los documentos influyen en el resultado.</p>
+<p>Un fragmento demasiado grande puede mezclar temas diferentes.</p>
+<p>Un fragmento demasiado pequeño puede perder información necesaria para comprender una idea.</p>
+<p>La fragmentación no es un simple detalle técnico. Forma parte del diseño del sistema.</p>
 </section>
-<section id="redes-feed-forward" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="redes-feed-forward"><span class="header-section-number">15.6</span> Redes feed-forward</h2>
-<p>Después de la atención, cada posición atraviesa una pequeña red neuronal denominada normalmente <strong>feed-forward</strong>.</p>
-<p>La atención combina información entre diferentes posiciones.</p>
-<p>La red feed-forward transforma la información resultante de cada posición.</p>
-<p>Podemos distinguir ambas funciones:</p>
+<section id="el-embedding-no-es-el-contenido" class="level2" data-number="20.7">
+<h2 data-number="20.7" class="anchored" data-anchor-id="el-embedding-no-es-el-contenido"><span class="header-section-number">20.7</span> El embedding no es el contenido</h2>
+<p>Un embedding no sustituye al texto original.</p>
+<p>Permite comparar y localizar información, pero no conserva necesariamente todos sus detalles de una forma que pueda reconstruirse directamente.</p>
+<p>Podemos almacenar el embedding de un párrafo para buscarlo, pero cuando queramos utilizar ese párrafo necesitaremos recuperar también el contenido original.</p>
+<p>Por ello, los sistemas suelen conservar:</p>
 <ul>
-<li>la <strong>atención</strong> determina qué información debe relacionarse;</li>
-<li>la <strong>red feed-forward</strong> transforma esa información.</li>
+<li>el vector;</li>
+<li>el texto o elemento representado;</li>
+<li>su origen;</li>
+<li>información adicional sobre el documento;</li>
+<li>permisos y restricciones de acceso.</li>
 </ul>
-<p>Estas redes utilizan los mismos parámetros para todas las posiciones de la secuencia, aunque procesan una representación contextual diferente en cada una.</p>
+<p>El vector actúa como una dirección aproximada dentro del espacio semántico. El contenido sigue siendo necesario para responder con precisión.</p>
 </section>
-<section id="conexiones-residuales" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="conexiones-residuales"><span class="header-section-number">15.7</span> Conexiones residuales</h2>
-<p>Los bloques Transformer incorporan conexiones residuales.</p>
-<p>En lugar de sustituir completamente la entrada de una capa por el nuevo resultado, parte de la información original se suma a la transformación realizada.</p>
+<section id="embeddings-de-tokens" class="level2" data-number="20.8">
+<h2 data-number="20.8" class="anchored" data-anchor-id="embeddings-de-tokens"><span class="header-section-number">20.8</span> Embeddings de tokens</h2>
+<p>En los modelos de lenguaje, cada token se transforma inicialmente en un embedding.</p>
+<p>Podemos representarlo de forma simplificada así:</p>
+<p><span class="math display">\[
+t_i \longrightarrow \mathbf{e}_i
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\((t_i)\)</span> es el token situado en la posición (i);</li>
+<li><span class="math inline">\((\mathbf{e}_i)\)</span> es su representación vectorial.</li>
+</ul>
+<p>El modelo no procesa directamente el identificador del token. Trabaja con la representación numérica asociada.</p>
+<p>Sin embargo, conocer el token no es suficiente. También importa su posición dentro de la secuencia.</p>
+<p>Estas frases contienen palabras parecidas:</p>
+<blockquote class="blockquote">
+<p>El perro mordió al hombre.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>El hombre mordió al perro.</p>
+</blockquote>
+<p>El significado cambia porque cambia el orden.</p>
+<p>Por ello, a la representación del token se incorpora información sobre su posición:</p>
+<p><span class="math display">\[
+\mathbf{x}_i =
+\mathbf{e}_i +
+\mathbf{p}_i
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\((\mathbf{e}_i)\)</span> representa el token;</li>
+<li><span class="math inline">\((\mathbf{p}_i)\)</span> representa su posición;</li>
+<li><span class="math inline">\((\mathbf{x}_i)\)</span> es la información que continúa hacia las siguientes capas del modelo.</li>
+</ul>
+<p>La forma concreta de representar la posición depende de la arquitectura utilizada, pero la idea es la misma: el modelo necesita saber qué token aparece y dónde aparece.</p>
+</section>
+<section id="el-significado-depende-del-contexto" class="level2" data-number="20.9">
+<h2 data-number="20.9" class="anchored" data-anchor-id="el-significado-depende-del-contexto"><span class="header-section-number">20.9</span> El significado depende del contexto</h2>
+<p>Una misma palabra puede tener distintos significados.</p>
+<p>Por ejemplo:</p>
+<blockquote class="blockquote">
+<p>Me senté en el banco.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>El banco rechazó el préstamo.</p>
+</blockquote>
+<p>El token «banco» puede comenzar con una representación inicial semejante en ambos casos. Sin embargo, durante el procesamiento, el modelo relaciona ese token con los demás elementos de la frase.</p>
+<p>En el primer ejemplo aparecen pistas relacionadas con sentarse y mobiliario.</p>
+<p>En el segundo aparecen préstamos y operaciones financieras.</p>
+<p>A medida que la información atraviesa las capas del modelo, la representación de cada token se ajusta según su contexto.</p>
+<p>Por ello conviene distinguir entre:</p>
+<ul>
+<li>el <strong>embedding inicial</strong>, asociado al token;</li>
+<li>la <strong>representación contextual</strong>, obtenida después de relacionarlo con los demás tokens.</li>
+</ul>
 <p>De forma simplificada:</p>
-<pre class="text"><code>entrada ───────────────┐
-   ↓                   │
-transformación         │
-   ↓                   │
-resultado + entrada ←──┘</code></pre>
-<p>Estas conexiones ayudan a:</p>
-<ul>
-<li>conservar información;</li>
-<li>entrenar arquitecturas con muchas capas;</li>
-<li>facilitar el flujo de la señal y del error;</li>
-<li>reducir algunos problemas asociados a redes muy profundas.</li>
-</ul>
+<p><span class="math display">\[
+\mathbf{h}_i =
+f(\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_n)
+\]</span></p>
+<p>La representación final del token situado en la posición (i) depende del conjunto de la secuencia, no únicamente del token aislado.</p>
+<p>Esta capacidad permite tratar ambigüedades, referencias y relaciones dentro de una frase o documento.</p>
 </section>
-<section id="normalización" class="level2" data-number="15.8">
-<h2 data-number="15.8" class="anchored" data-anchor-id="normalización"><span class="header-section-number">15.8</span> Normalización</h2>
-<p>El Transformer también utiliza mecanismos de normalización para mantener valores internos en rangos adecuados y estabilizar el entrenamiento.</p>
-<p>La combinación habitual de:</p>
-<ul>
-<li>atención;</li>
-<li>redes feed-forward;</li>
-<li>conexiones residuales;</li>
-<li>normalización;</li>
-</ul>
-<p>forma la unidad básica que se repite a lo largo de la arquitectura.</p>
-<p>Cada nueva capa recibe las representaciones producidas por la anterior y las refina.</p>
+<section id="relaciones-entre-conceptos" class="level2" data-number="20.10">
+<h2 data-number="20.10" class="anchored" data-anchor-id="relaciones-entre-conceptos"><span class="header-section-number">20.10</span> Relaciones entre conceptos</h2>
+<p>Los embeddings se hicieron conocidos por mostrar relaciones que podían expresarse mediante operaciones entre vectores.</p>
+<p>El ejemplo clásico se presenta de forma aproximada como:</p>
+<p><span class="math display">\[
+\mathbf{rey}
+-
+\mathbf{hombre}
++
+\mathbf{mujer}
+\approx
+\mathbf{reina}
+\]</span></p>
+<p>No debemos interpretar esta expresión como una regla lingüística exacta.</p>
+<p>Muestra que las relaciones aprendidas pueden reflejarse en la geometría del espacio vectorial. Algunas direcciones pueden capturar patrones relacionados con género, tiempo verbal, ubicación, categoría o función.</p>
+<p>Estas relaciones no han sido programadas una por una. Emergen de los patrones presentes en los datos.</p>
 </section>
-<section id="encoder-y-decoder" class="level2" data-number="15.9">
-<h2 data-number="15.9" class="anchored" data-anchor-id="encoder-y-decoder"><span class="header-section-number">15.9</span> Encoder y decoder</h2>
-<p>La arquitectura presentada originalmente estaba formada por dos grandes componentes:</p>
-<ul>
-<li><strong>encoder</strong>;</li>
-<li><strong>decoder</strong>.</li>
-</ul>
-<section id="encoder" class="level3" data-number="15.9.1">
-<h3 data-number="15.9.1" class="anchored" data-anchor-id="encoder"><span class="header-section-number">15.9.1</span> Encoder</h3>
-<p>El encoder recibe una secuencia de entrada y construye representaciones contextuales de sus elementos.</p>
-<p>Cada posición puede relacionarse con todas las demás posiciones de la entrada.</p>
-<p>Por ejemplo, en un sistema de traducción, el encoder podría procesar la frase escrita en el idioma de origen.</p>
-</section>
-<section id="decoder" class="level3" data-number="15.9.2">
-<h3 data-number="15.9.2" class="anchored" data-anchor-id="decoder"><span class="header-section-number">15.9.2</span> Decoder</h3>
-<p>El decoder genera una secuencia de salida.</p>
-<p>Durante esa generación utiliza:</p>
-<ul>
-<li>los tokens ya generados;</li>
-<li>las representaciones producidas por el encoder;</li>
-<li>una máscara causal que impide acceder a posiciones futuras.</li>
-</ul>
-<p>En un sistema de traducción, el decoder produciría progresivamente la frase en el idioma de destino.</p>
-<p>De forma simplificada:</p>
-<pre class="text"><code>secuencia de entrada
-        ↓
-      encoder
-        ↓
-representación contextual
-        ↓
-      decoder
-        ↓
-secuencia de salida</code></pre>
-</section>
-</section>
-<section id="variantes-de-la-arquitectura" class="level2" data-number="15.10">
-<h2 data-number="15.10" class="anchored" data-anchor-id="variantes-de-la-arquitectura"><span class="header-section-number">15.10</span> Variantes de la arquitectura</h2>
-<p>No todos los modelos basados en Transformers utilizan simultáneamente encoder y decoder.</p>
-<p>A partir de la arquitectura original aparecieron varias familias.</p>
-<section id="modelos-de-tipo-encoder" class="level3" data-number="15.10.1">
-<h3 data-number="15.10.1" class="anchored" data-anchor-id="modelos-de-tipo-encoder"><span class="header-section-number">15.10.1</span> Modelos de tipo encoder</h3>
-<p>Utilizan principalmente bloques encoder.</p>
-<p>Están orientados a construir representaciones del texto y resultan adecuados para tareas como:</p>
-<ul>
-<li>clasificación;</li>
-<li>extracción de información;</li>
-<li>análisis de contenido;</li>
-<li>comparación semántica;</li>
-<li>comprensión de documentos.</li>
-</ul>
-</section>
-<section id="modelos-de-tipo-decoder" class="level3" data-number="15.10.2">
-<h3 data-number="15.10.2" class="anchored" data-anchor-id="modelos-de-tipo-decoder"><span class="header-section-number">15.10.2</span> Modelos de tipo decoder</h3>
-<p>Utilizan bloques decoder con atención causal.</p>
-<p>Generan el texto progresivamente, prediciendo cada token a partir de los anteriores.</p>
-<p>Son la base de muchos modelos generativos y asistentes conversacionales.</p>
-</section>
-<section id="modelos-encoder-decoder" class="level3" data-number="15.10.3">
-<h3 data-number="15.10.3" class="anchored" data-anchor-id="modelos-encoder-decoder"><span class="header-section-number">15.10.3</span> Modelos encoder-decoder</h3>
-<p>Mantienen ambos componentes.</p>
-<p>Resultan especialmente adecuados cuando se transforma una secuencia de entrada en otra secuencia de salida:</p>
-<ul>
-<li>traducción;</li>
-<li>resumen;</li>
-<li>reescritura;</li>
-<li>conversión entre formatos;</li>
-<li>generación condicionada por un documento.</li>
-</ul>
-<p>Estas categorías comparten los principios fundamentales del Transformer, pero organizan sus bloques de manera diferente según el objetivo.</p>
-</section>
-</section>
-<section id="procesamiento-en-paralelo" class="level2" data-number="15.11">
-<h2 data-number="15.11" class="anchored" data-anchor-id="procesamiento-en-paralelo"><span class="header-section-number">15.11</span> Procesamiento en paralelo</h2>
-<p>Una ventaja importante del Transformer es que, durante el entrenamiento, puede procesar simultáneamente múltiples posiciones de una secuencia.</p>
-<p>En una arquitectura estrictamente recurrente, el cálculo de una posición depende del estado producido en la posición anterior.</p>
-<p>En un Transformer, las relaciones entre tokens pueden calcularse mediante operaciones matriciales paralelas.</p>
-<p>Esto permite aprovechar de forma eficiente hardware especializado, como las unidades de procesamiento gráfico.</p>
-<p>La capacidad de paralelización contribuyó a entrenar modelos con:</p>
-<ul>
-<li>mayores volúmenes de datos;</li>
-<li>más parámetros;</li>
-<li>más capas;</li>
-<li>vocabularios amplios;</li>
-<li>contextos progresivamente mayores.</li>
-</ul>
-<p>El Transformer no es importante únicamente por representar mejor ciertas relaciones lingüísticas. También hizo viable escalar el entrenamiento de modelos de lenguaje.</p>
-</section>
-<section id="capas-y-representaciones" class="level2" data-number="15.12">
-<h2 data-number="15.12" class="anchored" data-anchor-id="capas-y-representaciones"><span class="header-section-number">15.12</span> Capas y representaciones</h2>
-<p>Las representaciones no permanecen iguales mientras atraviesan el Transformer.</p>
-<p>En las primeras capas pueden aparecer relaciones relativamente locales o estructurales.</p>
-<p>En capas posteriores, las representaciones pueden integrar información procedente de partes más amplias del contexto.</p>
-<p>No debemos imaginar, sin embargo, una jerarquía perfectamente organizada en la que cada capa tenga una función única y fácilmente interpretable.</p>
-<p>El conocimiento y el comportamiento del modelo están distribuidos entre:</p>
-<ul>
-<li>numerosas capas;</li>
-<li>múltiples cabezas de atención;</li>
-<li>redes feed-forward;</li>
-<li>embeddings;</li>
-<li>conexiones internas;</li>
-<li>millones o miles de millones de parámetros.</li>
-</ul>
-<p>Las capacidades del modelo emergen de la interacción conjunta de estos componentes.</p>
-</section>
-<section id="transformer-y-ventana-de-contexto" class="level2" data-number="15.13">
-<h2 data-number="15.13" class="anchored" data-anchor-id="transformer-y-ventana-de-contexto"><span class="header-section-number">15.13</span> Transformer y ventana de contexto</h2>
-<p>La atención se calcula sobre los tokens disponibles dentro de la ventana de contexto.</p>
-<p>Cuanto mayor sea el contexto, mayor puede ser el número de relaciones que deben evaluarse.</p>
-<p>En la formulación clásica, el coste de la autoatención crece rápidamente al aumentar la longitud de la secuencia, porque cada posición puede compararse con muchas otras posiciones.</p>
-<p>Por esta razón, procesar contextos muy extensos requiere una cantidad considerable de memoria y capacidad de cálculo.</p>
-<p>Las arquitecturas posteriores han introducido distintas optimizaciones para:</p>
-<ul>
-<li>reducir el coste de la atención;</li>
-<li>trabajar con secuencias más largas;</li>
-<li>reutilizar cálculos anteriores;</li>
-<li>seleccionar relaciones relevantes;</li>
-<li>distribuir el procesamiento.</li>
-</ul>
-<p>La ventana de contexto no es, por tanto, un límite puramente arbitrario. Está relacionada también con el coste técnico de procesar las relaciones entre tokens.</p>
-</section>
-<section id="el-transformer-no-es-un-llm" class="level2" data-number="15.14">
-<h2 data-number="15.14" class="anchored" data-anchor-id="el-transformer-no-es-un-llm"><span class="header-section-number">15.14</span> El Transformer no es un LLM</h2>
-<p>Transformer y LLM tampoco son conceptos equivalentes.</p>
-<p>El Transformer es una <strong>arquitectura</strong>.</p>
-<p>Un LLM es un modelo de lenguaje de gran escala que normalmente utiliza una arquitectura basada en Transformers y ha sido entrenado con grandes cantidades de datos.</p>
-<p>Podemos expresarlo así:</p>
-<blockquote class="blockquote">
-<p>Transformer = arquitectura</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>modelo de lenguaje = modelo entrenado para trabajar con lenguaje</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>LLM = modelo de lenguaje de gran escala</p>
-</blockquote>
-<p>Un Transformer puede utilizarse para tareas que no son estrictamente lingüísticas.</p>
-<p>Existen modelos basados en esta arquitectura para trabajar con:</p>
+<section id="embeddings-más-allá-del-texto" class="level2" data-number="20.11">
+<h2 data-number="20.11" class="anchored" data-anchor-id="embeddings-más-allá-del-texto"><span class="header-section-number">20.11</span> Embeddings más allá del texto</h2>
+<p>Los embeddings no se limitan a palabras o documentos.</p>
+<p>También pueden representar:</p>
 <ul>
 <li>imágenes;</li>
-<li>audio;</li>
-<li>vídeo;</li>
-<li>datos biológicos;</li>
-<li>series temporales;</li>
-<li>sistemas multimodales.</li>
+<li>sonidos;</li>
+<li>vídeos;</li>
+<li>productos;</li>
+<li>usuarios;</li>
+<li>eventos;</li>
+<li>fragmentos de código;</li>
+<li>moléculas;</li>
+<li>registros de actividad.</li>
 </ul>
-<p>La arquitectura define cómo se procesa y relaciona la información. El entrenamiento y los datos determinan qué capacidad concreta desarrolla el modelo.</p>
-</section>
-<section id="una-arquitectura-dentro-de-un-sistema-inteligente" class="level2" data-number="15.15">
-<h2 data-number="15.15" class="anchored" data-anchor-id="una-arquitectura-dentro-de-un-sistema-inteligente"><span class="header-section-number">15.15</span> Una arquitectura dentro de un sistema inteligente</h2>
-<p>Un modelo basado en Transformers continúa siendo solo un componente.</p>
-<p>Para convertirlo en un sistema inteligente útil, sigue siendo necesario decidir:</p>
-<ul>
-<li>qué información recibe;</li>
-<li>cómo se construye el contexto;</li>
-<li>qué modelo se utiliza;</li>
-<li>qué resultados son válidos;</li>
-<li>cómo se verifican;</li>
-<li>qué herramientas puede emplear;</li>
-<li>qué acciones puede ejecutar;</li>
-<li>qué controles se aplican;</li>
-<li>quién asume la responsabilidad.</li>
-</ul>
-<p>La arquitectura aporta capacidad para representar, relacionar y generar información.</p>
-<p>El sistema inteligente determina cómo se utiliza esa capacidad.</p>
-</section>
-<section id="del-transformer-al-modelo-de-lenguaje" class="level2" data-number="15.16">
-<h2 data-number="15.16" class="anchored" data-anchor-id="del-transformer-al-modelo-de-lenguaje"><span class="header-section-number">15.16</span> Del Transformer al modelo de lenguaje</h2>
-<p>El recorrido conceptual queda ahora así:</p>
+<p>Cuando distintos tipos de contenido se representan en espacios compatibles, es posible relacionarlos.</p>
+<p>Por ejemplo, un sistema puede recibir la descripción:</p>
 <blockquote class="blockquote">
-<p>texto → tokens → embeddings → información posicional → atención multicabeza → bloques Transformer → representaciones contextuales</p>
+<p>un búho dibujado con líneas finas</p>
 </blockquote>
-<p>Todavía falta explicar cómo se utiliza esta arquitectura para aprender el lenguaje.</p>
-<p>Un Transformer no nace sabiendo escribir, resumir, traducir o responder preguntas. Estas capacidades aparecen como resultado de un proceso de entrenamiento sobre grandes cantidades de secuencias.</p>
-<p>En la siguiente sección estudiaremos qué es un <strong>modelo de lenguaje</strong>, qué significa predecir el siguiente token y cómo esa tarea aparentemente sencilla puede dar lugar a capacidades mucho más amplias.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-vaswani2017" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et&nbsp;al. 2017. <span>«Attention Is All You Need»</span>. <em>Advances in Neural Information Processing Systems</em> 30.
-</div>
-</div>
+<p>y localizar imágenes relacionadas con esa idea.</p>
+<p>La consulta textual y las imágenes se comparan mediante sus representaciones, aunque su formato original sea diferente.</p>
+<p>Esta es una de las bases de los sistemas multimodales.</p>
 </section>
+<section id="embeddings-y-recomendaciones" class="level2" data-number="20.12">
+<h2 data-number="20.12" class="anchored" data-anchor-id="embeddings-y-recomendaciones"><span class="header-section-number">20.12</span> Embeddings y recomendaciones</h2>
+<p>Los embeddings también pueden utilizarse para representar preferencias y elementos recomendables.</p>
+<p>Una plataforma puede generar vectores para:</p>
+<ul>
+<li>usuarios;</li>
+<li>películas;</li>
+<li>libros;</li>
+<li>productos;</li>
+<li>canciones.</li>
+</ul>
+<p>Si el vector de un usuario se encuentra próximo al de determinados productos, el sistema puede considerarlos candidatos para una recomendación.</p>
+<p>De forma esquemática:</p>
+<p><span class="math display">\[
+\text{recomendación}
+=
+\operatorname{elementos\ próximos}
+(\mathbf{e}_{\text{usuario}})
+\]</span></p>
+<p>La recomendación real suele incluir muchos otros factores, pero los embeddings permiten expresar semejanzas y afinidades.</p>
+</section>
+<section id="qué-no-garantizan" class="level2" data-number="20.13">
+<h2 data-number="20.13" class="anchored" data-anchor-id="qué-no-garantizan"><span class="header-section-number">20.13</span> Qué no garantizan</h2>
+<p>La proximidad entre embeddings indica relación estadística, no verdad.</p>
+<p>Dos textos pueden parecer semánticamente próximos y, sin embargo, defender ideas opuestas.</p>
+<p>Por ejemplo:</p>
+<blockquote class="blockquote">
+<p>El sistema cumple la normativa.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>El sistema no cumple la normativa.</p>
+</blockquote>
+<p>Ambas frases comparten vocabulario y tema. Sus embeddings pueden estar relativamente cerca, aunque su significado final sea contrario.</p>
+<p>También pueden producirse errores cuando:</p>
+<ul>
+<li>la consulta es ambigua;</li>
+<li>el fragmento recuperado menciona el tema, pero no responde a la pregunta;</li>
+<li>existen documentos muy similares con versiones distintas;</li>
+<li>la información relevante utiliza un lenguaje inesperado;</li>
+<li>los datos contienen sesgos o relaciones incorrectas;</li>
+<li>el modelo de embeddings no representa bien el dominio.</li>
+</ul>
+<p>Por ello, una búsqueda semántica no debe tratarse como una garantía de relevancia absoluta.</p>
+<p>Localiza candidatos.</p>
+<p>Después será necesario evaluar, ordenar y utilizar correctamente la información recuperada.</p>
+</section>
+<section id="embeddings-y-conocimiento" class="level2" data-number="20.14">
+<h2 data-number="20.14" class="anchored" data-anchor-id="embeddings-y-conocimiento"><span class="header-section-number">20.14</span> Embeddings y conocimiento</h2>
+<p>Un embedding no constituye por sí mismo una base de conocimiento.</p>
+<p>Representa relaciones entre elementos, pero no determina cuáles son ciertos, actuales o autorizados.</p>
+<p>Un documento antiguo puede tener un embedding muy próximo a una consulta actual. Una fuente incorrecta puede parecer semánticamente perfecta. Dos versiones contradictorias pueden ocupar posiciones cercanas.</p>
+<p>Para utilizar embeddings en un sistema real debemos conservar también información como:</p>
+<ul>
+<li>fecha;</li>
+<li>procedencia;</li>
+<li>versión;</li>
+<li>autoría;</li>
+<li>permisos;</li>
+<li>nivel de confianza;</li>
+<li>tipo de documento.</li>
+</ul>
+<p>La semejanza semántica ayuda a encontrar información.</p>
+<p>La ingeniería debe decidir si esa información es válida para la tarea.</p>
+</section>
+<section id="idea-clave" class="level2" data-number="20.15">
+<h2 data-number="20.15" class="anchored" data-anchor-id="idea-clave"><span class="header-section-number">20.15</span> Idea clave</h2>
+<p>Los embeddings transforman tokens, textos y otros elementos en representaciones vectoriales.</p>
+<p>Estas representaciones permiten relacionar contenidos, medir semejanzas y localizar información sin depender únicamente de coincidencias exactas.</p>
+<p>Dentro de los modelos de lenguaje, los embeddings proporcionan una representación inicial que después se modifica según el contexto.</p>
+<p>Para comprender cómo el modelo relaciona unos tokens con otros y construye esas representaciones contextuales, el siguiente paso será estudiar los <strong>transformers</strong> y el mecanismo de <strong>atención</strong>.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1191,13 +1216,13 @@ Vaswani, Ashish, Noam Shazeer, Niki Parmar, et&nbsp;al. 2017. <span>«Attention 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../chapters/02-conceptos/05-attention.html" class="pagination-link" aria-label="Attention">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Attention</span></span>
+      <a href="../../chapters/04-marco/03-window.html" class="pagination-link" aria-label="La ventana de contexto">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">La ventana de contexto</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/02-conceptos/07-modelos.html" class="pagination-link" aria-label="Modelos de lenguaje">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelos de lenguaje</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/04-marco/05-transformers.html" class="pagination-link" aria-label="Transformers">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Transformers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
