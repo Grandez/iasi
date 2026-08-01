@@ -16,10 +16,10 @@ $$
 
 donde:
 
-* (x) es la entrada;
-* (f) representa la estructura de operaciones del modelo;
-* (\theta) representa sus parámetros;
-* (\hat{y}) es la salida calculada.
+* $x$ es la entrada;
+* $f$ representa la estructura de operaciones del modelo;
+* $\theta$ representa sus parámetros;
+* $\hat{y}$ es la salida calculada.
 
 La entrada puede ser un texto, una imagen, una secuencia de audio, una tabla de datos o cualquier otro elemento que pueda representarse numéricamente.
 
@@ -117,10 +117,10 @@ $$
 
 donde:
 
-* (\mathbf{x}) es la entrada;
-* (W) es una matriz de pesos;
-* (\mathbf{b}) es un vector de ajuste;
-* (\mathbf{y}) es la salida.
+* $\mathbf{x}$ es la entrada;
+* $W$ es una matriz de pesos;
+* $\mathbf{b}$ es un vector de ajuste;
+* $\mathbf{y}$ es la salida.
 
 En un modelo real, este tipo de operación se combina con muchas otras y se repite a través de numerosas capas.
 
@@ -168,17 +168,16 @@ Podemos representar esta cantidad como:
 
 $$
 N_{\theta}
-==========
-
+=
 \sum_{l=1}^{L}
 N_{\theta}^{(l)}
 $$
 
 donde:
 
-* (L) es el número de capas;
-* (N_{\theta}^{(l)}) es el número de parámetros de la capa (l);
-* (N_{\theta}) es el número total de parámetros.
+* $L$ es el número de capas;
+* $N_{\theta}^{(l)}$ es el número de parámetros de la capa $l$;
+* $N_{\theta}$ es el número total de parámetros.
 
 Un modelo con más parámetros dispone de mayor capacidad para representar patrones complejos.
 
@@ -288,8 +287,7 @@ Podemos expresar la probabilidad de una secuencia completa como:
 
 $$
 P(t_1,t_2,\ldots,t_n)
-=====================
-
+=
 \prod_{i=1}^{n}
 P
 \left(
@@ -698,8 +696,7 @@ Podemos expresar esta relación de forma conceptual:
 
 $$
 \text{comportamiento}
-=====================
-
+=
 f(
 \text{modelo},
 \text{contexto},

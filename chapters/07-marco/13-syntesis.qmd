@@ -130,14 +130,14 @@ $$
 
 donde:
 
-* (R) es la respuesta;
-* (M) es el modelo;
-* (C) es el contexto;
-* (I) son las instrucciones;
-* (D) son los documentos;
-* (E) son las herramientas externas;
-* (H) representa el historial y la memoria;
-* (G) es la configuración de generación.
+* $R$ es la respuesta;
+* $M$ es el modelo;
+* $C$ es el contexto;
+* $I$ son las instrucciones;
+* $D$ son los documentos;
+* $E$ son las herramientas externas;
+* $H$ representa el historial y la memoria;
+* $G$ es la configuración de generación.
 
 Esta expresión no pretende describir una fórmula ejecutable.
 

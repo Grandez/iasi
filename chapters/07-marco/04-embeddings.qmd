@@ -23,10 +23,10 @@ De forma simplificada:
 $$
 \text{elemento} \longrightarrow
 \begin{bmatrix}
-x_1 \
-x_2 \
-x_3 \
-\vdots \
+x_1 \\
+x_2 \\
+x_3 \\
+\vdots \\
 x_n
 \end{bmatrix}
 $$
@@ -123,12 +123,11 @@ Una vez representados dos elementos mediante vectores, podemos calcular cuánto 
 
 Una medida habitual es la **similitud del coseno**.
 
-Dados dos vectores (\mathbf{a}) y (\mathbf{b}):
+Dados dos vectores $\mathbf{a}$ y $\mathbf{b}$:
 
 $$
 \operatorname{sim}(\mathbf{a},\mathbf{b})
-=========================================
-
+=
 \frac{\mathbf{a}\cdot\mathbf{b}}
 {\lVert\mathbf{a}\rVert\lVert\mathbf{b}\rVert}
 $$
@@ -261,8 +260,8 @@ $$
 
 donde:
 
-* (t_i) es el token situado en la posición (i);
-* (\mathbf{e}_i) es su representación vectorial.
+* $(t_i)$ es el token situado en la posición (i);
+* $(\mathbf{e}_i)$ es su representación vectorial.
 
 El modelo no procesa directamente el identificador del token. Trabaja con la representación numérica asociada.
 
@@ -286,9 +285,9 @@ $$
 
 donde:
 
-* (\mathbf{e}_i) representa el token;
-* (\mathbf{p}_i) representa su posición;
-* (\mathbf{x}_i) es la información que continúa hacia las siguientes capas del modelo.
+* $(\mathbf{e}_i)$ representa el token;
+* $(\mathbf{p}_i)$ representa su posición;
+* $(\mathbf{x}_i)$ es la información que continúa hacia las siguientes capas del modelo.
 
 La forma concreta de representar la posición depende de la arquitectura utilizada, pero la idea es la misma: el modelo necesita saber qué token aparece y dónde aparece.
 
@@ -334,8 +333,7 @@ El ejemplo clásico se presenta de forma aproximada como:
 
 $$
 \mathbf{rey}
-------------
-
+-
 \mathbf{hombre}
 +
 \mathbf{mujer}
@@ -395,10 +393,9 @@ De forma esquemática:
 
 $$
 \text{recomendación}
-====================
-
+=
 \operatorname{elementos\ próximos}
-(\mathbf{e}_{usuario})
+(\mathbf{e}_{\text{usuario}})
 $$
 
 La recomendación real suele incluir muchos otros factores, pero los embeddings permiten expresar semejanzas y afinidades.

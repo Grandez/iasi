@@ -16,10 +16,10 @@ $$
 
 donde:
 
-* (x) es la entrada;
-* (\theta) representa los parámetros aprendidos;
-* (f_{\theta}) es el modelo;
-* (\hat{y}) es el resultado calculado.
+* $x$ es la entrada;
+* $\theta$ representa los parámetros aprendidos;
+* $f_{\theta}$ es el modelo;
+* $\hat{y}$ es el resultado calculado.
 
 Durante la inferencia, los parámetros permanecen normalmente fijos.
 
@@ -167,8 +167,7 @@ Podemos expresarlo como:
 
 $$
 \theta_{\text{antes}}
-=====================
-
+=
 \theta_{\text{después}}
 $$
 
@@ -564,8 +563,8 @@ $$
 
 donde:
 
-* (T_{\text{generados}}) es el número de tokens producidos;
-* (\Delta t) es el tiempo empleado.
+* $T_{\text{generados}}$ es el número de tokens producidos;
+* $\Delta t$ es el tiempo empleado.
 
 Una aplicación puede comenzar a mostrar la respuesta mientras continúa generándola. Esta técnica se denomina habitualmente *streaming*.
 
@@ -650,16 +649,15 @@ El espacio necesario para almacenar los parámetros puede aproximarse mediante:
 
 $$
 M_{\theta}
-==========
-
+=
 N_{\theta}\cdot B
 $$
 
 donde:
 
-* (M_{\theta}) es la memoria necesaria;
-* (N_{\theta}) es el número de parámetros;
-* (B) es el número de bytes utilizado para representar cada parámetro.
+* $M_{\theta}$ es la memoria necesaria;
+* $N_{\theta}$ es el número de parámetros;
+* $B$ es el número de bytes utilizado para representar cada parámetro.
 
 Si un modelo contiene miles de millones de parámetros, pequeñas diferencias en la precisión numérica pueden producir grandes diferencias de memoria.
 
@@ -837,10 +835,10 @@ $$
 
 donde:
 
-* (C) es el coste;
-* (T_{\text{entrada}}) son los tokens recibidos;
-* (T_{\text{salida}}) son los tokens generados;
-* (P_{\text{entrada}}) y (P_{\text{salida}}) son los precios correspondientes.
+* $C$ es el coste;
+* $T_{\text{entrada}}$ son los tokens recibidos;
+* $T_{\text{salida}}$ son los tokens generados;
+* $P_{\text{entrada}}$ y $P_{\text{salida}}$ son los precios correspondientes.
 
 En infraestructura propia, el coste puede calcularse mediante tiempo de hardware, energía, mantenimiento y capacidad reservada.
 
@@ -1065,8 +1063,7 @@ El resultado depende de:
 
 $$
 \text{resultado}
-================
-
+=
 f(
 \text{modelo},
 \text{contexto},

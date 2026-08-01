@@ -95,15 +95,14 @@ Podemos representarlas como:
 
 $$
 \mathbf{z}
-==========
-
+=
 [z_1,z_2,\ldots,z_V]
 $$
 
 donde:
 
-* (V) es el tamaño del vocabulario;
-* (z_i) es la puntuación asignada al token (i).
+* $V$ es el tamaño del vocabulario;
+* $z_i$ es la puntuación asignada al token $i$.
 
 Los logits no son todavía probabilidades.
 
@@ -113,8 +112,7 @@ Para convertirlos en una distribución de probabilidad se utiliza normalmente la
 
 $$
 P(t_i)
-======
-
+=
 \frac{e^{z_i}}
 {\sum_{j=1}^{V}e^{z_j}}
 $$
@@ -139,8 +137,7 @@ La estrategia más sencilla consiste en seleccionar siempre el token con mayor p
 
 $$
 t_{n+1}
-=======
-
+=
 \arg\max_{t}
 P
 \left(
@@ -193,8 +190,7 @@ La probabilidad de una secuencia puede expresarse como:
 
 $$
 P(t_1,t_2,\ldots,t_n)
-=====================
-
+=
 \prod_{i=1}^{n}
 P
 \left(
@@ -244,17 +240,16 @@ Puede expresarse como:
 
 $$
 P_T(t_i)
-========
-
+=
 \frac{e^{z_i/T}}
 {\sum_{j=1}^{V}e^{z_j/T}}
 $$
 
-donde (T) representa la temperatura.
+donde $T$ representa la temperatura.
 
 ### Temperatura baja
 
-Cuando (T) es menor, la distribución se concentra en los tokens con puntuaciones más altas.
+Cuando $T$ es menor, la distribución se concentra en los tokens con puntuaciones más altas.
 
 ```text
 resultado:
@@ -265,7 +260,7 @@ menos variado
 
 ### Temperatura alta
 
-Cuando (T) aumenta, las probabilidades se distribuyen entre más alternativas.
+Cuando $T$ aumenta, las probabilidades se distribuyen entre más alternativas.
 
 ```text
 resultado:
@@ -333,7 +328,7 @@ La configuración reduce la variabilidad de la selección, pero la reproducibili
 
 ## Top-k
 
-La estrategia **top-k** limita la selección a los (k) tokens más probables.
+La estrategia **top-k** limita la selección a los $k$ tokens más probables.
 
 Si:
 
@@ -368,11 +363,11 @@ Un valor pequeño produce resultados más controlados.
 
 Un valor grande permite mayor diversidad.
 
-El problema es que un mismo valor de (k) se aplica de igual forma aunque la distribución sea muy diferente.
+El problema es que un mismo valor de $k$ se aplica de igual forma aunque la distribución sea muy diferente.
 
 ## Top-p
 
-La estrategia **top-p**, también denominada muestreo por núcleo o *nucleus sampling*, selecciona el conjunto mínimo de tokens cuya probabilidad acumulada alcanza un umbral (p).
+La estrategia **top-p**, también denominada muestreo por núcleo o *nucleus sampling*, selecciona el conjunto mínimo de tokens cuya probabilidad acumulada alcanza un umbral $p$.
 
 Por ejemplo, si:
 
@@ -457,17 +452,16 @@ Una modificación conceptual de la puntuación podría expresarse como:
 
 $$
 z_i'
-====
-
+=
 z_i-\lambda r_i
 $$
 
 donde:
 
-* (z_i) es la puntuación original;
-* (r_i) representa la repetición del token;
-* (\lambda) controla la penalización;
-* (z_i') es la puntuación modificada.
+* $z_i$ es la puntuación original;
+* $r_i$ representa la repetición del token;
+* $\lambda$ controla la penalización;
+* $z_i'$ es la puntuación modificada.
 
 Estas penalizaciones pueden mejorar la variedad, pero si son excesivas también pueden perjudicar:
 

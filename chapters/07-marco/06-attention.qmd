@@ -98,9 +98,9 @@ Para calcular la atención, cada representación se transforma en tres vectores:
 * una **clave**, denominada *key*;
 * un **valor**, denominado *value*.
 
-Se representan habitualmente mediante las letras (Q), (K) y (V).
+Se representan habitualmente mediante las letras $Q$, $K$ y $V$.
 
-A partir de una matriz de entrada (X), se calculan así:
+A partir de una matriz de entrada $X$, se calculan así:
 
 $$
 Q = XW_Q
@@ -114,7 +114,7 @@ $$
 V = XW_V
 $$
 
-donde (W_Q), (W_K) y (W_V) son matrices cuyos valores se aprenden durante el entrenamiento.
+donde $W_Q$, $W_K$ y $W_V$ son matrices cuyos valores se aprenden durante el entrenamiento.
 
 Estas denominaciones pueden entenderse mediante una búsqueda.
 
@@ -148,12 +148,12 @@ $$
 
 donde:
 
-* (q_i) es la consulta de la posición (i);
-* (k_j) es la clave de la posición (j).
+* $q_i$ es la consulta de la posición $i$;
+* $k_j$ es la clave de la posición $j$.
 
 Un resultado elevado indica una mayor compatibilidad entre ambas representaciones.
 
-Si procesamos el token situado en la posición (i), podemos calcular una puntuación para cada posición:
+Si procesamos el token situado en la posición $i$, podemos calcular una puntuación para cada posición:
 
 $$
 s_{ij}=q_i\cdot k_j
@@ -169,8 +169,7 @@ Su expresión es:
 
 $$
 \operatorname{Atención}(Q,K,V)
-==============================
-
+=
 \operatorname{softmax}
 \left(
 \frac{QK^T}{\sqrt{d_k}}
@@ -193,24 +192,23 @@ $$
 \sqrt{d_k}
 $$
 
-donde (d_k) es la dimensión de las claves.
+donde $d_k$ es la dimensión de las claves.
 
 Este escalado evita que los productos alcancen magnitudes excesivas cuando los vectores tienen muchas dimensiones. Si los valores fueran demasiado grandes, la distribución resultante podría concentrarse en unas pocas posiciones y dificultar el aprendizaje.
 
 Después se aplica la función *softmax* para convertir las puntuaciones en pesos relativos.
 
-Finalmente, esos pesos se utilizan para combinar los valores (V).
+Finalmente, esos pesos se utilizan para combinar los valores $V$.
 
 ## La función softmax
 
 La función *softmax* transforma un conjunto de puntuaciones en valores positivos cuya suma es uno.
 
-Para una puntuación (s_i):
+Para una puntuación $s_i$:
 
 $$
 \operatorname{softmax}(s_i)
-===========================
-
+=
 \frac{e^{s_i}}
 {\sum_{j=1}^{n}e^{s_j}}
 $$
@@ -239,17 +237,16 @@ La nueva representación se obtiene mediante una suma ponderada:
 
 $$
 z_i
-===
-
+=
 \sum_{j=1}^{n}
 \alpha_{ij}v_j
 $$
 
 donde:
 
-* (z_i) es el resultado para la posición (i);
-* (\alpha_{ij}) es el peso asignado a la posición (j);
-* (v_j) es el valor asociado a esa posición.
+* $z_i$ es el resultado para la posición $i$;
+* $\alpha_{ij}$ es el peso asignado a la posición $j$;
+* $v_j$ es el valor asociado a esa posición.
 
 Las posiciones consideradas más relevantes aportan una parte mayor de su información.
 
@@ -291,8 +288,7 @@ Cada cabeza trabaja con sus propias transformaciones de consultas, claves y valo
 
 $$
 \operatorname{cabeza}_h
-=======================
-
+=
 \operatorname{Atención}
 \left(
 Q_h,K_h,V_h
@@ -313,8 +309,7 @@ Los resultados de las cabezas se concatenan:
 
 $$
 \operatorname{MultiHead}(Q,K,V)
-===============================
-
+=
 \operatorname{Concat}
 \left(
 \operatorname{cabeza}_1,
@@ -325,8 +320,8 @@ $$
 
 donde:
 
-* (m) es el número de cabezas;
-* (W_O) es una transformación aprendida que combina sus resultados.
+* $m$ es el número de cabezas;
+* $W_O$ es una transformación aprendida que combina sus resultados.
 
 La atención múltiple permite observar la misma secuencia mediante varias representaciones simultáneas.
 
@@ -346,8 +341,7 @@ Después de aplicar la autoatención, su nueva representación incorpora informa
 
 $$
 h_i
-===
-
+=
 \sum_{j=1}^{n}
 \alpha_{ij}v_j
 $$
@@ -401,9 +395,9 @@ Puede representarse mediante una matriz:
 $$
 M=
 \begin{bmatrix}
-0 & -\infty & -\infty & -\infty \
-0 & 0 & -\infty & -\infty \
-0 & 0 & 0 & -\infty \
+0 & -\infty & -\infty & -\infty \\
+0 & 0 & -\infty & -\infty \\
+0 & 0 & 0 & -\infty \\
 0 & 0 & 0 & 0
 \end{bmatrix}
 $$
@@ -417,7 +411,7 @@ $$
 \right)
 $$
 
-Las posiciones futuras reciben un valor de (-\infty), que después de aplicar *softmax* se convierte prácticamente en un peso nulo.
+Las posiciones futuras reciben un valor de $-\infty$, que después de aplicar *softmax* se convierte prácticamente en un peso nulo.
 
 Así se evita que el modelo observe la continuación correcta antes de generarla.
 
@@ -462,8 +456,7 @@ Podemos expresarlo así:
 
 $$
 H^{(l+1)}
-=========
-
+=
 \operatorname{Atención}^{(l)}
 \left(
 H^{(l)}
@@ -499,7 +492,7 @@ $$
 
 La atención causal permite relacionar cada posición con los tokens anteriores y construir las representaciones utilizadas para realizar esa predicción.
 
-Una vez seleccionado el token (t_{n+1}), se incorpora a la secuencia:
+Una vez seleccionado el token $t_{n+1}$, se incorpora a la secuencia:
 
 $$
 t_1,t_2,\ldots,t_n,t_{n+1}
@@ -541,7 +534,7 @@ Por ello, la atención no elimina la necesidad de seleccionar y organizar adecua
 
 En la autoatención convencional, cada token puede compararse con todos los demás.
 
-Para una secuencia de (n) tokens, la matriz de relaciones contiene aproximadamente:
+Para una secuencia de $n$ tokens, la matriz de relaciones contiene aproximadamente:
 
 $$
 n\times n=n^2

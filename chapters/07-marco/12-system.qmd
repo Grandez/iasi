@@ -167,12 +167,12 @@ $$
 
 donde:
 
-* (I) representa las instrucciones;
-* (H) representa el historial;
-* (M) representa la memoria recuperada;
-* (D) representa documentos;
-* (R) representa resultados de herramientas;
-* (Q) representa la petición actual.
+* $I$ representa las instrucciones;
+* $H$ representa el historial;
+* $M$ representa la memoria recuperada;
+* $D$ representa documentos;
+* $R$ representa resultados de herramientas;
+* $Q$ representa la petición actual.
 
 Esta expresión es conceptual. No indica una suma matemática literal.
 
@@ -546,12 +546,12 @@ $$
 
 donde:
 
-* (B) representa el comportamiento;
-* (M) es el modelo;
-* (C) es el contexto;
-* (I) son las instrucciones;
-* (T) son las herramientas;
-* (V) representa validaciones y controles.
+* $B$ representa el comportamiento;
+* $M$ es el modelo;
+* $C$ es el contexto;
+* $I$ son las instrucciones;
+* $T$ son las herramientas;
+* $V$ representa validaciones y controles.
 
 De nuevo, se trata de una expresión conceptual.
 

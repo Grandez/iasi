@@ -90,8 +90,7 @@ De forma simplificada:
 
 $$
 \text{respuesta}
-================
-
+=
 f(\text{modelo},\text{contexto},\text{memoria recuperada})
 $$
 
@@ -258,9 +257,9 @@ $$
 
 donde:
 
-* (H) es el historial completo;
-* (S) es el resumen;
-* (g) es el proceso de selección y condensación.
+* $H$ es el historial completo;
+* $S$ es el resumen;
+* $g$ es el proceso de selección y condensación.
 
 En general:
 
@@ -419,26 +418,24 @@ Podemos representar una decisión simplificada de escritura:
 
 $$
 \operatorname{guardar}(x)
-=========================
-
+=
 \begin{cases}
-1, & \text{si } R(x) > \tau \
+1, & \text{si } R(x) > \tau \\
 0, & \text{en otro caso}
 \end{cases}
 $$
 
 donde:
 
-* (x) es la información candidata;
-* (R(x)) representa su relevancia futura;
-* (\tau) es el umbral mínimo para conservarla.
+* $x$ es la información candidata;
+* $R(x)$ representa su relevancia futura;
+* $\tau$ es el umbral mínimo para conservarla.
 
 En un sistema real, esta decisión puede considerar muchos factores adicionales:
 
 $$
 R(x)
-====
-
+=
 f(
 \text{utilidad},
 \text{duración},
@@ -471,8 +468,7 @@ Una puntuación conceptual de recuperación podría expresarse así:
 
 $$
 P(m,q)
-======
-
+=
 \alpha S(m,q)
 +
 \beta A(m)
@@ -482,12 +478,12 @@ $$
 
 donde:
 
-* (m) es un recuerdo;
-* (q) es la consulta actual;
-* (S(m,q)) representa la similitud entre ambos;
-* (A(m)) representa la actualidad del recuerdo;
-* (C(m)) representa su nivel de confianza;
-* (\alpha), (\beta) y (\gamma) determinan la importancia de cada factor.
+* $m$ es un recuerdo;
+* $q$ es la consulta actual;
+* $S(m,q)$ representa la similitud entre ambos;
+* $A(m)$ representa la actualidad del recuerdo;
+* $C(m)$ representa su nivel de confianza;
+* $\alpha$, $\beta$ y $\gamma$ determinan la importancia de cada factor.
 
 Los recuerdos con mayor puntuación pueden incorporarse al contexto.
 
@@ -509,11 +505,11 @@ $$
 
 donde:
 
-* (A(t)) representa la relevancia temporal;
-* (t) es el tiempo transcurrido;
-* (\lambda) controla la velocidad de pérdida.
+* $A(t)$ representa la relevancia temporal;
+* $t$ es el tiempo transcurrido;
+* $\lambda$ controla la velocidad de pérdida.
 
-Una constante (\lambda) pequeña conserva la relevancia durante más tiempo.
+Una constante $\lambda$ pequeña conserva la relevancia durante más tiempo.
 
 Una constante grande hace que el recuerdo pierda prioridad rápidamente.
 
@@ -694,8 +690,7 @@ La similitud puede calcularse mediante el coseno:
 
 $$
 \operatorname{sim}(q,m)
-=======================
-
+=
 \frac{q\cdot m}
 {\lVert q\rVert\lVert m\rVert}
 $$

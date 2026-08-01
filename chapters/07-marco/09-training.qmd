@@ -165,7 +165,7 @@ t_1,t_2,\ldots,t_{i-1}
 \right)
 $$
 
-Es decir, la probabilidad del token situado en la posición (i), teniendo en cuenta los tokens anteriores.
+Es decir, la probabilidad del token situado en la posición $i$, teniendo en cuenta los tokens anteriores.
 
 Por ejemplo, ante:
 
@@ -190,8 +190,7 @@ Podemos representarla de forma general:
 
 $$
 L(\theta)
-=========
-
+=
 \operatorname{error}
 \left(
 f_{\theta}(x),y
@@ -200,17 +199,16 @@ $$
 
 donde:
 
-* (x) es la entrada;
-* (y) es el resultado esperado;
-* (f_{\theta}(x)) es la predicción;
-* (L(\theta)) es la pérdida obtenida.
+* $x$ es la entrada;
+* $y$ es el resultado esperado;
+* $f_{\theta}(x)$ es la predicción;
+* $L(\theta)$ es la pérdida obtenida.
 
 El objetivo del entrenamiento consiste en encontrar unos parámetros que reduzcan esa pérdida:
 
 $$
 \theta^{*}
-==========
-
+=
 \arg\min_{\theta}L(\theta)
 $$
 
@@ -218,8 +216,7 @@ En un modelo de lenguaje, una función habitual penaliza al modelo cuando asigna
 
 $$
 L(\theta)
-=========
-
+=
 -\sum_{i=1}^{n}
 \log
 P_{\theta}
@@ -254,20 +251,19 @@ Una actualización simplificada puede expresarse así:
 
 $$
 \theta_{k+1}
-============
-
-## \theta_k
-
+=
+\theta_k
+-
 \eta
 \nabla_{\theta}L(\theta_k)
 $$
 
 donde:
 
-* (\theta_k) contiene los parámetros actuales;
-* (\theta_{k+1}) contiene los parámetros actualizados;
-* (\eta) es la velocidad de aprendizaje;
-* (\nabla_{\theta}L) indica la dirección del cambio.
+* $\theta_k$ contiene los parámetros actuales;
+* $\theta_{k+1}$ contiene los parámetros actualizados;
+* $\eta$ es la velocidad de aprendizaje;
+* $\nabla_{\theta}L$ indica la dirección del cambio.
 
 El sistema modifica los parámetros en la dirección que debería reducir el error.
 
@@ -309,7 +305,7 @@ Es un procedimiento matemático para calcular cómo deben ajustarse los parámet
 
 ## La velocidad de aprendizaje
 
-La velocidad de aprendizaje, representada habitualmente por (\eta), controla la magnitud de cada actualización.
+La velocidad de aprendizaje, representada habitualmente por $\eta$, controla la magnitud de cada actualización.
 
 Un valor demasiado grande puede provocar cambios excesivos:
 
