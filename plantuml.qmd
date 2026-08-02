@@ -1,0 +1,11 @@
+---
+title: "Prueba PlantUML"
+filters:
+  - resources/quarto/_extensions/plantuml4/plantuml4.lua
+---
+
+``` plantuml
+@startuml
+Alice -> Bob : Hola
+@enduml
+```

@@ -39,4 +39,13 @@ book:
         - "chapters/04-marco/11-probability.qmd"
         - "chapters/04-marco/12-system.qmd"
         - "chapters/04-marco/13-syntesis.qmd"
+    - part: "chapters/99-saco/index.qmd"
+      chapters:
+        - "chapters/99-saco/00-construccion.qmd"
+        - "chapters/99-saco/01-entorno.qmd"
+        - "chapters/99-saco/02-prerequisitos.qmd"
+        - "chapters/99-saco/05-politicas.qmd"
+        - "chapters/99-saco/10-virtualbox.qmd"
+        - "chapters/99-saco/11-documentos.qmd"
+        - "chapters/99-saco/99-notes.qmd"
     - "licenses.qmd"
