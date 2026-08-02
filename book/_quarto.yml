@@ -66,3 +66,14 @@ copyright:
   year: 2026
 
 license: "CC BY"
+
+filters:
+  - resources/quarto/_extensions/plantuml5
+  
+engines:
+  plantuml:
+    enabled: true
+    server: http://javier:1025
+    format: svg
+    cache: clean
+    

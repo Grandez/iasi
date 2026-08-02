@@ -6,6 +6,6 @@ filters:
 
 ``` plantuml
 @startuml
-Alice -> Bob : Hola
+Alice -> Charlie : Hola
 @enduml
 ```
